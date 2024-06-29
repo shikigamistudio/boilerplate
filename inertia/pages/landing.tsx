@@ -1,65 +1,50 @@
-import type { InferPageProps } from '@adonisjs/inertia/types'
-import { Badge } from '~/components/elements/badge'
-import { Input } from '~/components/forms/input'
-import { Label } from '~/components/forms/label'
+import { Text } from '~/components/elements/text'
 
-import type HomeController from '#controllers/home_controller'
-
-const checkList = [
-  {
-    name: 'title-meta',
-    text: 'Change the title and metadatas in',
-    file: 'resources/views/inertia_layout.edge',
-  },
-  {
-    name: 'app-name',
-    text: 'Change the app name in',
-    file: 'inertia/app/app.tsx',
-  },
-  {
-    name: 'dot-env',
-    text: 'Configure the .env file',
-    file: '.env',
-  },
-  {
-    name: 'favicon-icon',
-    text: 'Change the icon in the favicon',
-    file: 'public/favicon.ico',
-  },
-  {
-    name: 'header-icon',
-    text: 'Change the icon in the header',
-    file: 'inertia/components/layouts/page_header.tsx',
-  },
-  {
-    name: 'footer',
-    text: 'Customize the footer',
-    file: 'inertia/components/layouts/page_footer.tsx',
-  },
-]
-
-export default function Home(props: InferPageProps<HomeController, 'handle'>) {
+export default function Home() {
   return (
     <>
-      <h1 className="text-center text-2xl">Shikigami Studio Boilerplate</h1>
-
-      <p>Todo Checklist</p>
-      <ul>
-        {checkList.map(function (object, i) {
-          return (
-            <li key={i}>
-              <Input type="checkbox" name={object.name} />
-              <Label name={object.name} className="inline-block pl-2">
-                {object.text}{' '}
-                <a href={'vscode://file/' + props.appPath + object.file + ':1:1'}>
-                  <Badge>{object.file}</Badge>
-                </a>
-              </Label>
-            </li>
-          )
-        })}
-      </ul>
-      <p>You can then start developing your application</p>
+      <Text type="h1" className="text-center text-violet-300">
+        ShikigamiStudio Boilerplate
+      </Text>
+      <Text type="h1" className="my-2 font-semibold">
+        Welcome to Your Next Great Project!
+      </Text>
+      <Text type="h2">Built with AdonisJS, Inertia, and React</Text>
+      <Text>Hello there! 🌟</Text>
+      <Text>
+        We're thrilled to have you here. Welcome to the starting point of something amazing, crafted
+        with the powerful trio of AdonisJS, Inertia, and React. Whether you're a seasoned developer
+        or just getting started, our boilerplate is designed to make your development journey smooth
+        and enjoyable.
+      </Text>
+      <Text type="h2">Why You'll Love It Here:</Text>
+      <Text type="h3">🚀 Fast and Efficient:</Text>
+      <Text>
+        Leverage the robust AdonisJS framework for a seamless backend experience. Enjoy the speed
+        and interactivity of React, powered by Inertia's effortless bridging of the front and back
+        ends.
+      </Text>
+      <Text type="h3">🎨 Beautiful and Responsive:</Text>
+      <Text>
+        Our boilerplate includes a stunning design that's fully responsive, ensuring your project
+        looks great on any device. Easy to customize and make your own!
+      </Text>
+      <Text type="h3">🛠️ Developer-Friendly:</Text>
+      <Text>
+        With clear, well-documented code and a focus on best practices, you can dive right in and
+        start building. Spend less time setting up and more time creating.
+      </Text>
+      <Text type="h3">🔒 Secure and Reliable:</Text>
+      <Text>
+        We've integrated security best practices from the ground up. Your project will be both safe
+        and performant, ready to scale as your user base grows.
+      </Text>
+      <Text type="h2">Get Started:</Text>
+      <Text>
+        Ready to embark on your development adventure? Check out our documentation, join our
+        community, and start building something extraordinary today!
+      </Text>
+      <Text className="font-medium">Happy Coding!</Text>
     </>
   )
 }
