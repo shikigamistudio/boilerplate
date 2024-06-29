@@ -11,7 +11,7 @@ export function AppShell(props: AppShellProps) {
   const { children } = props
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="bg-squares flex min-h-screen flex-col">
       <PageHeader />
       <main className="grid-container mt-2 grid grow gap-y-2">{children}</main>
       <PageFooter />

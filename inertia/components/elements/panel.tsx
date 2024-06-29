@@ -7,7 +7,7 @@ export interface PanelProperties extends HTMLAttributes<HTMLDivElement> {}
 export function Panel(props: PanelProperties) {
   const { className, children, ...PanelProps } = props
   return (
-    <div className={combine(className, 'border m-2 p-2 rounded-lg')} {...PanelProps}>
+    <div className={combine(className, 'border m-2 p-2 rounded-lg bg-white')} {...PanelProps}>
       {children}
     </div>
   )

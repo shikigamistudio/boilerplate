@@ -15,7 +15,7 @@ export function PageHeader() {
   })
 
   return (
-    <header className="flex w-full items-center justify-between border-b px-6 py-3">
+    <header className="flex w-full items-center justify-between border-b bg-white px-6 py-3">
       <Link href="/">
         <img src={shikigamiStudioLogo} alt="Shikigami SAAS" className="w-10" width="40" />
       </Link>
