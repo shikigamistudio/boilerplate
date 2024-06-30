@@ -5,6 +5,7 @@ import { middleware } from '#start/kernel'
 const LoginController = () => import('#controllers/auth/login_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
 const RegisterController = () => import('#controllers/auth/register_controller')
+const ProfilController = () => import('#controllers/auth/profil_controller')
 
 router
   .group(() => {
@@ -18,5 +19,6 @@ router
 router
   .group(() => {
     router.delete('logout', [LogoutController, 'execute'])
+    router.get('profil', [ProfilController, 'handle'])
   })
   .use(middleware.auth())

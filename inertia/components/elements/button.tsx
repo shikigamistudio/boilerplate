@@ -44,8 +44,8 @@ function Button(props: ButtonProperties) {
       className={combine(className, aspectStyle, 'rounded-md py-2 flex justify-center gap-2')}
       {...buttonProps}
     >
-      {icon}
-      {icon === undefined && isLoading && (
+      {!isLoading && icon}
+      {isLoading && (
         <img
           src={loader}
           alt="loader"

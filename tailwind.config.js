@@ -41,15 +41,7 @@ export default {
     require('autoprefixer'),
     require('@ayato-san/tailwind-plugin'),
     require('@ayato-san/tailwind-plugin/grid'),
-    plugin(function ({ addComponents, matchComponents, theme }) {
-      matchComponents(
-        {
-          'bg-dots.bg': (value) => ({
-            backgroundColor: value,
-          }),
-        },
-        { values: theme('colors') }
-      )
+    plugin(function ({ addComponents }) {
       addComponents({
         '.bg-dots::before': { ...bgs },
         '.bg-dots::after': {

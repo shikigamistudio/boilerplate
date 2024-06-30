@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { Link } from '../elements/link'
 
 export function PageHeader() {
-  const pageProps = usePage<SharedProps>().props
+  const { currentUser } = usePage<SharedProps>().props
   const [menuOpen, setMenuOpen] = useState(false)
 
   const ref = useOutsideClick<HTMLDivElement>(() => {
@@ -21,10 +21,10 @@ export function PageHeader() {
       </Link>
 
       <div className="relative flex gap-x-4" ref={ref}>
-        {pageProps.currentUser ? (
+        {currentUser ? (
           <>
             <button className="p-2" onClick={() => setMenuOpen(!menuOpen)}>
-              {pageProps.currentUser?.email}
+              {currentUser.email}
             </button>
             <ul
               className={`absolute right-0 top-full mt-1 rounded-xl border bg-white p-4 ${menuOpen ? 'block' : 'hidden'}`}

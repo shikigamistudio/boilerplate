@@ -1,3 +1,5 @@
+/// <reference path="../adonisrc.ts" />
+/// <reference path="./auth.ts" />
 import { defineConfig } from '@adonisjs/inertia'
 import type { InferSharedProps } from '@adonisjs/inertia/types'
 
