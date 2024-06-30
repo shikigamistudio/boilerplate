@@ -7,31 +7,31 @@ export interface TextProperties extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 export function Text(props: TextProperties) {
-  const { className, children, type = 'p', ...TextProps } = props
+  const { className, children, type = 'p', ...textProps } = props
 
   switch (type) {
     case 'h1':
       return (
-        <h1 className={combine(className, 'text-2xl font-bold')} {...TextProps}>
+        <h1 className={combine(className, 'text-2xl font-bold')} {...textProps}>
           {children}
         </h1>
       )
     case 'h2':
       return (
-        <h2 className={combine(className, 'text-xl font-medium')} {...TextProps}>
+        <h2 className={combine(className, 'text-xl font-medium')} {...textProps}>
           {children}
         </h2>
       )
     case 'h3':
       return (
-        <h3 className={combine(className, 'text-lg')} {...TextProps}>
+        <h3 className={combine(className, 'text-lg')} {...textProps}>
           {children}
         </h3>
       )
     case 'p':
     default:
       return (
-        <p className={combine(className)} {...TextProps}>
+        <p className={combine(className)} {...textProps}>
           {children}
         </p>
       )

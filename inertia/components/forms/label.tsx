@@ -7,9 +7,9 @@ export interface LabelProperties
     HTMLAttributes<HTMLLabelElement> {}
 
 export function Label(props: LabelProperties) {
-  const { className, name, children, ...LabelProps } = props
+  const { className, name, children, ...labelProps } = props
   return (
-    <label className={combine(className)} htmlFor={name} {...LabelProps}>
+    <label className={combine(className)} htmlFor={name} {...labelProps}>
       {children}
     </label>
   )

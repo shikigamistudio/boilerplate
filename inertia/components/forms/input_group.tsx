@@ -9,14 +9,14 @@ export interface InputGroupProperties extends InputProperties {
 }
 
 export function InputGroup(props: InputGroupProperties) {
-  const { children: htmlLabel, errorMessage, ...InputProps } = props
+  const { children: htmlLabel, errorMessage, ...inputProps } = props
 
   return (
     <div>
-      <Label name={InputProps.name} className="inline-block pl-2">
+      <Label name={inputProps.name} className="inline-block pl-2">
         {htmlLabel}
       </Label>
-      <Input {...InputProps} className="w-full" />
+      <Input {...inputProps} className="w-full" />
       {errorMessage && <p className="text-sm font-light text-red-400">{errorMessage}</p>}
     </div>
   )

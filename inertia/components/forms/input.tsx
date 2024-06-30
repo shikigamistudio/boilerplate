@@ -8,12 +8,12 @@ export interface InputProperties extends Omit<InputHTMLAttributes<HTMLInputEleme
 }
 
 export function Input(props: InputProperties) {
-  const { className, ...InputProps } = props
+  const { className, ...inputProps } = props
   return (
     <input
       className={combine(className, 'px-2 py-1 rounded border')}
-      id={InputProps.name}
-      {...InputProps}
+      id={inputProps.name}
+      {...inputProps}
     />
   )
 }
