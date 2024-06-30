@@ -1,3 +1,4 @@
+import { Children, ReactNode, isValidElement } from 'react'
 import loader from '~/assets/loader.svg'
 import type { ButtonHTMLAttributes } from 'react'
 
@@ -8,8 +9,24 @@ export interface ButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement
   isLoading?: boolean
 }
 
-export function Button(props: ButtonProperties) {
+function ButtonIcon(props: { children: ReactNode }) {
+  const { children } = props
+  return children
+}
+
+function Button(props: ButtonProperties) {
   const { className, children, aspect, isLoading, ...buttonProps } = props
+  let icon
+  let content: ReactNode[] = []
+
+  Children.forEach(children, (child) => {
+    if (!isValidElement(child)) return content.push(child)
+    if (child.type === ButtonIcon) {
+      icon = child
+    } else {
+      content.push(child)
+    }
+  })
 
   let aspectStyle = ''
   switch (aspect) {
@@ -27,7 +44,8 @@ export function Button(props: ButtonProperties) {
       className={combine(className, aspectStyle, 'rounded-md py-2 flex justify-center gap-2')}
       {...buttonProps}
     >
-      {isLoading && (
+      {icon}
+      {icon === undefined && isLoading && (
         <img
           src={loader}
           alt="loader"
@@ -35,7 +53,10 @@ export function Button(props: ButtonProperties) {
           width="20"
         />
       )}
-      {children}
+      {content}
     </button>
   )
 }
+
+Button.Icon = ButtonIcon
+export { Button }
