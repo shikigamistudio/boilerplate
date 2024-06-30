@@ -20,30 +20,33 @@ export default function Login() {
       <Panel>
         <form onSubmit={handleSubmit} className="space-y-2">
           <InputGroup
-            label="Email"
             name="email"
             type="email"
             placeholder="john.doe@example.com"
             errorMessage={form.errors.email}
             onChange={(event) => form.setData('email', event.target.value)}
-          />
+          >
+            Email
+          </InputGroup>
           <InputGroup
-            label="Password"
             name="password"
             type="password"
             placeholder="•••••••"
             errorMessage={form.errors.password}
             onChange={(event) => form.setData('password', event.target.value)}
-          />
+          >
+            Password
+          </InputGroup>
           <InputGroup
-            label="Confirmation"
             name="password_confirmation"
             type="password"
-            placeholder="•••••••••"
+            placeholder="•••••••"
             errorMessage={form.errors.password_confirmation}
             onChange={(event) => form.setData('password_confirmation', event.target.value)}
-          />
-          <Button type="submit" className="block w-full">
+          >
+            Password
+          </InputGroup>
+          <Button type="submit" className="block w-full" isLoading={form.processing}>
             Register
           </Button>
         </form>

@@ -37,7 +37,7 @@ export default function Login() {
           >
             Password
           </InputGroup>
-          <Button type="submit" className="block w-full">
+          <Button type="submit" className="block w-full" isLoading={form.processing}>
             Login
           </Button>
         </form>

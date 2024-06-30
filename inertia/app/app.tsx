@@ -11,7 +11,7 @@ import { hydrateRoot } from 'react-dom/client'
 const appName = import.meta.env.VITE_APP_NAME || 'ShikigamiStudio'
 
 createInertiaApp({
-  progress: { color: '#5468FF' },
+  progress: { color: '#2196f3' },
 
   title: (title) => (title ? `${title} | ${appName}` : appName),
 
