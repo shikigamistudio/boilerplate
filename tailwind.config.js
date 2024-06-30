@@ -4,6 +4,16 @@ import plugin from 'tailwindcss/plugin'
 
 const sizes = { height: ['100vh', '100svh'], width: ['100vw', '100svw'] }
 
+const bgs = {
+  backgroundColor: 'inherit',
+  content: 'var(--tw-content)',
+  width: sizes.width,
+  height: sizes.height,
+  top: '0',
+  position: 'fixed',
+  zIndex: '-1000',
+}
+
 export default {
   darkMode: 'selector',
   content: [
@@ -23,6 +33,7 @@ export default {
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
+      zIndex: { 1: 1 },
     },
   },
   plugins: [
@@ -30,32 +41,36 @@ export default {
     require('autoprefixer'),
     require('@ayato-san/tailwind-plugin'),
     require('@ayato-san/tailwind-plugin/grid'),
-    plugin(function ({ addComponents, theme }) {
-      addComponents({
-        '.bg-dots::before': {
-          backgroundColor: theme('colors').white,
-          backgroundImage: 'radial-gradient(black 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-          backgroundPosition: '-19px -19px',
-          content: 'var(--tw-content)',
-          width: theme('width').screen,
-          height: theme('height').screen,
-          zIndex: '-' + theme('zIndex')[10],
-          position: 'fixed',
-          maskImage: 'radial-gradient(black, transparent 80%)',
+    plugin(function ({ addComponents, matchComponents, theme }) {
+      matchComponents(
+        {
+          'bg-dots.bg': (value) => ({
+            backgroundColor: value,
+          }),
         },
-        '.bg-squares::before': {
-          backgroundColor: theme('colors').white,
+        { values: theme('colors') }
+      )
+      addComponents({
+        '.bg-dots::before': { ...bgs },
+        '.bg-dots::after': {
+          ...bgs,
+          backgroundImage: 'radial-gradient(rgba(0,0,0,.5) 1px, transparent 0)',
+          backgroundSize: '40px 40px',
+          maskImage: 'radial-gradient(black 30%, transparent 80%)',
+        },
+        '.bg-squares::before': { ...bgs },
+        '.bg-squares::after': {
+          ...bgs,
           backgroundImage:
             'linear-gradient(to top, transparent 18px, rgba(0,0,0,.15) 19px, transparent 20px), linear-gradient(to left, transparent 18px, rgba(0,0,0,.15) 19px, transparent 20px)',
           backgroundSize: '40px 40px',
           backgroundPositionY: '-10px',
-          content: 'var(--tw-content)',
-          width: theme('width').screen,
-          height: theme('height').screen,
-          zIndex: '-' + theme('zIndex')[10],
-          position: 'fixed',
-          maskImage: 'radial-gradient(black, transparent 90%)',
+          maskImage: 'radial-gradient(black 20%, transparent 90%)',
+        },
+        '.text-gradient': {
+          'backgroundImage': 'linear-gradient(#ce9ffc, #7367f0)',
+          'backgroundClip': 'text',
+          '-webkit-text-fill-color': 'transparent',
         },
       })
     }),

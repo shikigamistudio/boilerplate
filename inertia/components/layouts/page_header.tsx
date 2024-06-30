@@ -27,7 +27,7 @@ export function PageHeader() {
               {pageProps.currentUser?.email}
             </button>
             <ul
-              className={`absolute right-0 top-full z-10 mt-1 rounded-xl border bg-white p-4 ${menuOpen ? 'block' : 'hidden'}`}
+              className={`absolute right-0 top-full mt-1 rounded-xl border bg-white p-4 ${menuOpen ? 'block' : 'hidden'}`}
             >
               <li>
                 <Link href="/profil">Profil</Link>

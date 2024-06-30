@@ -12,7 +12,7 @@
 Todo Checklist
 
 - [ ] Change the title and metadatas in `resources/views/inertia_layout.edge`
-- [ ] Change the app name in `inertia/app/app.tsx`
+- [ ] Change the app name and the progess color in `inertia/app/app.tsx`
 - [ ] Configure the `.env` file
 - [ ] Change the icon in the favicon `public/favicon.ico`
 - [ ] Change the icon in the header `inertia/components/layouts/page_header.tsx`
