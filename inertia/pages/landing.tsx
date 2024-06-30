@@ -1,15 +1,21 @@
+import { Link } from '~/components/elements/link'
 import { Text } from '~/components/elements/text'
 
 export default function Home() {
   return (
     <>
-      <Text type="h1" className="text-center text-violet-300">
+      <Text type="h1" className="text-gradient text-center">
         ShikigamiStudio Boilerplate
       </Text>
       <Text type="h1" className="my-2 font-semibold">
         Welcome to Your Next Great Project!
       </Text>
-      <Text type="h2">Built with AdonisJS, Inertia, and React</Text>
+      <Text type="h2">
+        Built with <Link href="docs.adonisjs.com">AdonisJS</Link>,{' '}
+        <Link href="inertiajs.com">Inertia</Link>,{' '}
+        <Link href="react.dev/reference/react">React</Link>, and{' '}
+        <Link href="tailwindcss.com/docs">Tailwind</Link>.
+      </Text>
       <Text>Hello there! 🌟</Text>
       <Text>
         We're thrilled to have you here. Welcome to the starting point of something amazing, crafted
