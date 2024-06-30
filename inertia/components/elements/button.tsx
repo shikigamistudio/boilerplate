@@ -1,6 +1,6 @@
-import { Children, ReactNode, isValidElement } from 'react'
 import loader from '~/assets/loader.svg'
-import type { ButtonHTMLAttributes } from 'react'
+import { Children, isValidElement } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import { combine } from '#helpers/class_name_combine_helper'
 
@@ -17,7 +17,7 @@ function ButtonIcon(props: { children: ReactNode }) {
 function Button(props: ButtonProperties) {
   const { className, children, aspect, isLoading, ...buttonProps } = props
   let icon
-  let content: ReactNode[] = []
+  const content: ReactNode[] = []
 
   Children.forEach(children, (child) => {
     if (!isValidElement(child)) return content.push(child)
@@ -41,7 +41,7 @@ function Button(props: ButtonProperties) {
 
   return (
     <button
-      className={combine(className, aspectStyle, 'rounded-md py-2 flex justify-center gap-2')}
+      className={combine(className, aspectStyle, 'rounded-md px-4 py-2 flex justify-center gap-2')}
       {...buttonProps}
     >
       {!isLoading && icon}

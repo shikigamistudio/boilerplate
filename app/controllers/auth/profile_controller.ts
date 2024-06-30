@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
-export default class ProfilController {
+export default class ProfileController {
   handle({ inertia }: HttpContext) {
-    return inertia.render('auth/profil')
+    return inertia.render('auth/profile')
   }
 }

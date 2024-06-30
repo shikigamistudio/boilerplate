@@ -1,14 +1,43 @@
-import type { HTMLAttributes } from 'react'
+import { Children, isValidElement, type HTMLAttributes, type ReactNode } from 'react'
 
 import { combine } from '#helpers/class_name_combine_helper'
 
-export interface PanelProperties extends HTMLAttributes<HTMLDivElement> {}
+interface PanelFooterProperties extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode
+}
 
-export function Panel(props: PanelProperties) {
-  const { className, children, ...panelProps } = props
+function PanelFooter(props: PanelFooterProperties) {
+  const { children, className, ...panelFooterProps } = props
   return (
-    <div className={combine(className, 'border m-2 p-2 rounded-lg bg-white')} {...panelProps}>
+    <div className={combine(className, 'flex mt-4')} {...panelFooterProps}>
       {children}
     </div>
   )
 }
+
+export interface PanelProperties extends HTMLAttributes<HTMLDivElement> {}
+
+function Panel(props: PanelProperties) {
+  const { className, children, ...panelProps } = props
+  let footer
+  const content: ReactNode[] = []
+
+  Children.forEach(children, (child) => {
+    if (!isValidElement(child)) return content.push(child)
+    if (child.type === PanelFooter) {
+      footer = child
+    } else {
+      content.push(child)
+    }
+  })
+
+  return (
+    <div className={combine(className, 'border p-2 rounded-lg bg-white')} {...panelProps}>
+      {content}
+      {footer}
+    </div>
+  )
+}
+
+Panel.Footer = PanelFooter
+export { Panel }

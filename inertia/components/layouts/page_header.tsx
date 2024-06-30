@@ -30,7 +30,7 @@ export function PageHeader() {
               className={`absolute right-0 top-full mt-1 rounded-xl border bg-white p-4 ${menuOpen ? 'block' : 'hidden'}`}
             >
               <li>
-                <Link href="/profil">Profil</Link>
+                <Link href="/profile">Profile</Link>
               </li>
               <li>
                 <Link href="/logout" method="delete">

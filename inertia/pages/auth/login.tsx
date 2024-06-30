@@ -17,7 +17,7 @@ export default function Login() {
     <>
       <Head title="Login" />
 
-      <Panel>
+      <Panel className="m-2">
         <form onSubmit={handleSubmit} className="space-y-2">
           <InputGroup
             name="email"
