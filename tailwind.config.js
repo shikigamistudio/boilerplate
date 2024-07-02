@@ -13,9 +13,6 @@ export default {
     './inertia/scripts/**/*.{js,ts}',
   ],
   theme: {
-    paddingInline: '2rem',
-    contentMaxWidth: '90ch',
-    breakoutMaxWidth: '110ch',
     extend: {
       height: { screen: sizes.height },
       minHeight: { screen: sizes.height },

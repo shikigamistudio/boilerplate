@@ -11,8 +11,8 @@ export default function Profile() {
   return (
     <>
       <Head title="Profile" />
-      <section className="grid-cols-3 md:grid">
-        <aside>
+      <section className="grid-cols-3 gap-2 md:grid">
+        <aside className="mb-2">
           <Text type="h2">Profile Information</Text>
           <Text className="text-sm">
             Update your account's profile information and email adress.
@@ -40,8 +40,8 @@ export default function Profile() {
           </Panel.Footer>
         </Panel>
       </section>
-      <section className="grid-cols-3 md:grid">
-        <aside>
+      <section className="grid-cols-3 gap-2 md:grid">
+        <aside className="mb-2">
           <Text type="h2">Update Password</Text>
           <Text className="text-sm">
             Ensure your account is using a long random password to stay secure.
