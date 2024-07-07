@@ -5,6 +5,7 @@ import { Panel } from '~/components/elements/panel'
 import { Text } from '~/components/elements/text'
 import { InputGroup } from '~/components/forms/input_group'
 import type { FormEvent } from 'react'
+import { Errors } from '~/components/elements/errors'
 
 export default function Profile() {
   const { currentUser } = usePage<SharedProps>().props
@@ -25,6 +26,7 @@ export default function Profile() {
     <>
       <Head title="Profile" />
       <Panel>
+        <Errors />
         <form onSubmit={handleSubmit} className="space-y-2">
           <Text type="h2">Profile Information</Text>
           <Text className="text-sm">
