@@ -3,6 +3,7 @@ import { Button } from '~/components/elements/button'
 import { Panel } from '~/components/elements/panel'
 import { InputGroup } from '~/components/forms/input_group'
 import type { FormEvent } from 'react'
+import { Errors } from '~/components/elements/errors'
 
 export default function Login() {
   const form = useForm({ email: '', password: '' })
@@ -18,6 +19,7 @@ export default function Login() {
       <Head title="Login" />
 
       <Panel className="m-2">
+        <Errors />
         <form onSubmit={handleSubmit} className="space-y-2">
           <InputGroup
             name="email"

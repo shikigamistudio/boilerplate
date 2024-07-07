@@ -7,25 +7,23 @@ export default class LoginController {
     return inertia.render('auth/login')
   }
 
-  async execute({ request, auth, response }: HttpContext) {
-    /**
-     * Step 1: Get credentials from the request body
-     */
+  async execute({ request, auth, response, session }: HttpContext) {
+    /** Step 1: Get credentials from the request body */
     const { email, password } = request.only(['email', 'password'])
 
-    /**
-     * Step 2: Verify credentials
-     */
-    const user = await User.verifyCredentials(email, password)
+    /** Step 2: Verify credentials */
+    let user: User | undefined
+    try {
+      user = await User.verifyCredentials(email, password)
+    } catch (error) {
+      session.flash('errors', 'Invalid user credentials')
+      return response.redirect().back()
+    }
 
-    /**
-     * Step 3: Login user
-     */
+    /** Step 3: Login user */
     await auth.use('web').login(user)
 
-    /**
-     * Step 4: Send them to a protected route
-     */
+    /** Step 4: Send them to a protected route */
     response.redirect('/')
   }
 }
