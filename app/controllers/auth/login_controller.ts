@@ -7,7 +7,7 @@ export default class LoginController {
     return inertia.render('auth/login')
   }
 
-  async execute({ request, auth, response, session }: HttpContext) {
+  async execute({ auth, request, response, session }: HttpContext) {
     /** Step 1: Get credentials from the request body */
     const { email, password } = request.only(['email', 'password'])
 

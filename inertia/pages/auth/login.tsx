@@ -1,16 +1,15 @@
 import { Head, useForm } from '@inertiajs/react'
 import { Button } from '~/components/elements/button'
+import { Errors } from '~/components/elements/errors'
 import { Panel } from '~/components/elements/panel'
 import { InputGroup } from '~/components/forms/input_group'
 import type { FormEvent } from 'react'
-import { Errors } from '~/components/elements/errors'
 
 export default function Login() {
   const form = useForm({ email: '', password: '' })
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
     form.post('/login')
   }
 

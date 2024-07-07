@@ -18,18 +18,14 @@ export default class RegisterController {
     return inertia.render('auth/register')
   }
 
-  async execute({ request, auth, response, session }: HttpContext) {
+  async execute({ auth, request, response, session }: HttpContext) {
     /** Step 1: Get credentials from the request body */
-    const {
-      email,
-      password,
-      password_confirmation: passwordConfirmation,
-    } = request.only(['email', 'password', 'password_confirmation'])
+    const requestData = request.only(['email', 'password', 'password_confirmation'])
 
     /** Step 2: Validate new users credentials */
     const validateData = await vine.validate({
       schema: RegisterController.schema,
-      data: { email, password, password_confirmation: passwordConfirmation },
+      data: requestData,
       messagesProvider: new SimpleMessagesProvider({
         confirmed: 'The password and the confirmation must be the same',
         regex:

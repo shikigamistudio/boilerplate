@@ -20,5 +20,6 @@ router
   .group(() => {
     router.delete('logout', [LogoutController, 'execute'])
     router.get('profile', [ProfileController, 'handle'])
+    router.post('profile', [ProfileController, 'execute'])
   })
   .use(middleware.auth())
