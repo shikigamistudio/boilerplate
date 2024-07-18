@@ -3,7 +3,9 @@ import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 import User from '#models/user'
 
+/** Handle profile-related actions */
 export default class ProfileController {
+  /** Define the schema for profile updates */
   static schema = vine.object({
     fullName: vine.string().trim().optional(),
     email: vine.string().email().optional(),
@@ -17,12 +19,14 @@ export default class ProfileController {
       .optional(),
   })
 
+  /** Renders the profile page */
   handle({ inertia }: HttpContext) {
     return inertia.render('auth/profile')
   }
 
+  /** Executes the profile update process */
   async execute({ auth, request, response }: HttpContext) {
-    /** Step 1: Get users from the request body */
+    /** Step 1: Get user data from the request body */
     const requestData = request.only([
       'fullName',
       'email',
@@ -31,7 +35,7 @@ export default class ProfileController {
       'new_password_confirmation',
     ])
 
-    /** Step 2: Validate datas */
+    /** Step 2: Validate the data */
     const validateData = await vine.validate({
       schema: ProfileController.schema,
       data: requestData,
@@ -43,14 +47,14 @@ export default class ProfileController {
       }),
     })
 
-    /** Step 3: Verify user connexion */
+    /** Step 3: Verify user connection */
     const user = auth.user
     if (!user) throw new Error('The user must be logged')
     if (validateData.current_password) {
       await User.verifyCredentials(user.email, validateData.current_password)
     }
 
-    /** Step 4: Update user infos */
+    /** Step 4: Update user information */
     user.fullName = validateData.fullName
     if (validateData.email) user.email = validateData.email
     if (validateData.new_password) user.password = validateData.new_password
@@ -58,7 +62,7 @@ export default class ProfileController {
     /** Step 5: Save the user */
     await user.save()
 
-    /** Step 6: Send them to a protected route */
+    /** Step 6: Redirect to the profile page */
     response.redirect('/profile')
   }
 }

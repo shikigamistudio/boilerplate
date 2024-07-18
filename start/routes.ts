@@ -7,10 +7,12 @@
 |
 */
 
+/** Import the authentication routes defined in a separate file */
 import './routes/auth.js'
 
 import router from '@adonisjs/core/services/router'
 
+/** Import controllers asynchronously */
 const HomeController = () => import('#controllers/home_controller')
 
-router.get('/', [HomeController, 'handle'])
+router.get('/', [HomeController, 'handle']) // route to display the landing page
