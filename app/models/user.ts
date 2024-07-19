@@ -26,6 +26,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
+  /** Date/time when email was validated */
+  @column.dateTime()
+  declare emailValidateAt: DateTime | null
+
   /** Hashed password stored securely */
   @column({ serializeAs: null })
   declare password: string

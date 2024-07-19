@@ -1,7 +1,8 @@
 services:
   database:
-    image: postgres:16-alpine3.19
+    container_name: database
     restart: always
+    image: postgres:16-alpine3.19
     ports:
       - 5432:5432
     volumes:
@@ -10,11 +11,20 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=app
-  # mailtrap:
-  #   image: axllent/mailpit:v1.16
-  #   ports:
-  #     - 1025:1025
-  #     - 8025:8025
+  mailtrap:
+    container_name: mailtrap
+    restart: always
+    image: axllent/mailpit:v1.16
+    ports:
+      - 1025:1025
+      - 8025:8025
+    volumes:
+      - mailpit-data:/data
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
   # redis:
   #   image: redis:latest
   #   restart: always
@@ -30,5 +40,6 @@ services:
 
 volumes:
   psql-data:
+  mailpit-data:
   redis-data:
   redis-conf:

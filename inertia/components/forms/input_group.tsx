@@ -6,13 +6,14 @@ import { Label } from './label'
 export interface InputGroupProperties extends InputProperties {
   errorMessage?: string
   children: string | ReactNode
+  parentClassName?: string
 }
 
 export function InputGroup(props: InputGroupProperties) {
-  const { children: htmlLabel, errorMessage, ...inputProps } = props
+  const { children: htmlLabel, errorMessage, parentClassName, ...inputProps } = props
 
   return (
-    <div>
+    <div className={parentClassName}>
       <Label name={inputProps.name} className="inline-block pl-2">
         {htmlLabel}
       </Label>
