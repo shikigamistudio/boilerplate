@@ -5,7 +5,7 @@ import { Errors } from '~/components/elements/errors'
 import { Panel } from '~/components/elements/panel'
 import { Text } from '~/components/elements/text'
 import { InputGroup } from '~/components/forms/input_group'
-import type { FormEvent } from 'react'
+import type { FormEvent, MouseEvent } from 'react'
 
 export default function Profile() {
   const { currentUser } = usePage<SharedProps>().props
@@ -16,10 +16,18 @@ export default function Profile() {
     new_password: '',
     new_password_confirmation: '',
   })
+  const sendEmailForm = !currentUser?.hasEmailValidate ? useForm({}) : null
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     form.post('/profile')
+  }
+
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    if (sendEmailForm !== null) {
+      sendEmailForm.post('send-verify-email')
+    }
   }
 
   return (
@@ -58,8 +66,13 @@ export default function Profile() {
                 >
                   Email
                 </InputGroup>
-                {currentUser?.createdAt !== null && (
-                  <Button type="button" className="text-sm">
+                {!currentUser?.hasEmailValidate && (
+                  <Button
+                    type="button"
+                    className="text-sm"
+                    onClick={handleClick}
+                    isLoading={sendEmailForm?.processing}
+                  >
                     Verify Email
                   </Button>
                 )}

@@ -2,7 +2,7 @@ import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import { Opaque } from '@adonisjs/core/types/helpers'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, computed } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 /** Authentication finder using 'scrypt' hashing algorithm for password */
@@ -29,6 +29,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
   /** Date/time when email was validated */
   @column.dateTime()
   declare emailValidateAt: DateTime | null
+
+  /** Computed property to check if the email is validated */
+  @computed()
+  get hasEmailValidate() {
+    return this.emailValidateAt !== null
+  }
 
   /** Hashed password stored securely */
   @column({ serializeAs: null })

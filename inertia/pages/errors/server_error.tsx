@@ -1,11 +1,5 @@
-export default function ServerError(props: { error: any }) {
-  return (
-    <>
-      <div className="grid-container grid">
-        <div>Server Error</div>
+import { DefaultError } from './default_error'
 
-        <span>{props.error.message}</span>
-      </div>
-    </>
-  )
+export default function ServerError(props: { error: any }) {
+  return <DefaultError title="Server Error" error={props.error.message} />
 }
