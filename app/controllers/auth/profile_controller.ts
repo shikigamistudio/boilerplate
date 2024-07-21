@@ -10,13 +10,7 @@ export default class ProfileController {
     fullName: vine.string().trim().optional(),
     email: vine.string().email().optional(),
     current_password: vine.string().optional().requiredIfAnyExists(['email', 'new_password']),
-    new_password: vine
-      .string()
-      .minLength(8)
-      .maxLength(52)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/)
-      .confirmed()
-      .optional(),
+    new_password: vine.string().minLength(8).maxLength(52).password().confirmed().optional(),
   })
 
   /** Renders the profile page */
@@ -42,8 +36,6 @@ export default class ProfileController {
       messagesProvider: new SimpleMessagesProvider({
         required: 'The current password field must be defined',
         confirmed: 'The new password and the confirmation must be the same',
-        regex:
-          'The password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
       }),
     })
 

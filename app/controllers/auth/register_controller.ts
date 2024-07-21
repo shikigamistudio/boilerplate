@@ -9,12 +9,7 @@ export default class RegisterController {
   /** Define the schema for user registration */
   static schema = vine.object({
     email: vine.string().email(),
-    password: vine
-      .string()
-      .minLength(8)
-      .maxLength(52)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/)
-      .confirmed(),
+    password: vine.string().minLength(8).maxLength(52).password().confirmed(),
   })
 
   /** Renders the registration page */
@@ -33,8 +28,6 @@ export default class RegisterController {
       data: requestData,
       messagesProvider: new SimpleMessagesProvider({
         confirmed: 'The password and the confirmation must be the same',
-        regex:
-          'The password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
       }),
     })
 

@@ -33,7 +33,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   /** Computed property to check if the email is validated */
   @computed()
   get hasEmailValidate() {
-    return this.emailValidateAt !== null
+    return this.emailValidateAt !== undefined && this.emailValidateAt !== null
   }
 
   /** Hashed password stored securely */
