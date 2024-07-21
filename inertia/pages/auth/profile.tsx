@@ -16,7 +16,7 @@ export default function Profile() {
     new_password: '',
     new_password_confirmation: '',
   })
-  const sendEmailForm = !currentUser?.hasEmailValidate ? useForm({}) : null
+  const sendEmailForm = useForm({})
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -25,7 +25,7 @@ export default function Profile() {
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    if (sendEmailForm !== null) {
+    if (!currentUser?.hasEmailValidate) {
       sendEmailForm.post('send-verify-email')
     }
   }
@@ -62,6 +62,7 @@ export default function Profile() {
                   placeholder="john.doe@example.com"
                   defaultValue={currentUser?.email}
                   errorMessage={form.errors.email}
+                  disabled={!currentUser?.hasEmailValidate}
                   onChange={(event) => form.setData('email', event.target.value)}
                 >
                   Email

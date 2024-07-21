@@ -9,14 +9,7 @@ import User from '#models/user'
  * when they follow a verification link.
  */
 export default class VerifyEmailController {
-  /**
-   * Handles the email verification process.
-   *
-   * @param ctx - The HTTP context containing request, response, and other objects
-   * @param ctx.inertia - The Inertia.js context for rendering views
-   * @param ctx.params - The route parameters from the request
-   * @param ctx.request - The HTTP request object
-   */
+  /** Handles the email verification process. */
   async handle({ inertia, params, request }: HttpContext) {
     /** Step 1: Check if the request URL has a valid signature. */
     if (!request.hasValidSignature()) {

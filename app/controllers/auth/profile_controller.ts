@@ -1,3 +1,4 @@
+import { errors as adonisAuthErrors } from '@adonisjs/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
@@ -20,7 +21,7 @@ export default class ProfileController {
   }
 
   /** Executes the profile update process */
-  async execute({ auth, request, response }: HttpContext) {
+  async execute({ auth, request, response, session }: HttpContext) {
     /** Step 1: Get user data from the request body */
     const requestData = request.only([
       'fullName',
@@ -44,18 +45,32 @@ export default class ProfileController {
     const user = auth.user
     if (!user) throw new authErrors.E_UNLOGGED()
     if (validateData.current_password) {
-      await User.verifyCredentials(user.email, validateData.current_password)
+      try {
+        await User.verifyCredentials(user.email, validateData.current_password)
+      } catch (error) {
+        if (error instanceof adonisAuthErrors.E_INVALID_CREDENTIALS) {
+          session.flash('errors', { current_password: 'Invalid password' })
+          return response.redirect().toRoute('profile')
+        }
+        throw error
+      }
     }
 
     /** Step 4: Update user information */
+    // TODO send mail to old email to validate the email change if not intended
     user.fullName = validateData.fullName
-    if (validateData.email) user.email = validateData.email
-    if (validateData.new_password) user.password = validateData.new_password
+    if (user.hasEmailValidate && validateData.email && user.email !== validateData.email) {
+      user.email = validateData.email
+      user.emailValidateAt = null
+    }
+    if (validateData.new_password && user.password !== validateData.new_password) {
+      user.password = validateData.new_password
+    }
 
     /** Step 5: Save the user */
     await user.save()
 
     /** Step 6: Redirect to the profile page */
-    response.redirect('/profile')
+    return response.redirect().toRoute('profile')
   }
 }
