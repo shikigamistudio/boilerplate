@@ -1,4 +1,3 @@
-// Import custom exceptions for email verification
 import AlreadyVerifiedEmailException from './already_verified_email_exception.js'
 import InvalidExpiredUrlException from './invalid_expired_url_exception.js'
 

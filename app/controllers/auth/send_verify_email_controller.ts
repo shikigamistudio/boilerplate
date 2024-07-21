@@ -1,7 +1,7 @@
-import { errors as authErrors } from '@adonisjs/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 
 import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import { errors as authErrors } from '#exceptions/auth/index'
 
 /**
  * SendVerifyEmailsController class handles the HTTP request for sending
@@ -20,10 +20,7 @@ export default class SendVerifyEmailController {
     /** Step 1: Check if the user is authenticated */
     if (!auth.user) {
       // Return unauthorized response if the user is not logged in
-      throw new authErrors.E_UNAUTHORIZED_ACCESS(
-        'You need to be logged to proceed an email verification',
-        { guardDriverName: 'web' }
-      )
+      throw new authErrors.E_UNLOGGED('You need to be logged to proceed an email verification')
     }
 
     /** Step 2: Extract the origin (protocol + host) from the complete URL of the request */

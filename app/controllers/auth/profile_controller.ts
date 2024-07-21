@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
+import { errors as authErrors } from '#exceptions/auth/index'
 import User from '#models/user'
 
 /** Handle profile-related actions */
@@ -41,7 +42,7 @@ export default class ProfileController {
 
     /** Step 3: Verify user connection */
     const user = auth.user
-    if (!user) throw new Error('The user must be logged')
+    if (!user) throw new authErrors.E_UNLOGGED()
     if (validateData.current_password) {
       await User.verifyCredentials(user.email, validateData.current_password)
     }
