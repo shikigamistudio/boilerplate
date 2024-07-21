@@ -1,10 +1,18 @@
-import { DefaultError } from './default_error'
+import type { HttpError } from '@adonisjs/core/types/http'
+import { DefaultError } from '~/components/layouts/default_error'
 
-export default function Unauthorized() {
+export interface UnauthorizedProps {
+  error: HttpError
+}
+
+export default function Unauthorized(props: UnauthorizedProps) {
+  const { error } = props
+
   return (
     <DefaultError
       title="Unauthorized"
-      error="Oops, looks like a little break is in order! The 401 error page indicates that authentication has not been completed. Log in now and join the community!"
+      infos="Oops, looks like a little break is in order! The 401 error page indicates that authentication has not been completed. Log in now and join the community!"
+      error={error}
     />
   )
 }

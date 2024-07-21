@@ -1,4 +1,4 @@
-import loader from '~/assets/loader.svg'
+import loader from '~/assets/svg/loader.svg'
 import { Children, isValidElement } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 

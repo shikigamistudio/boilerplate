@@ -1,6 +1,6 @@
 import type { SharedProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/react'
-import shikigamiStudioLogo from '~/assets/shikigamistudio-icon.svg'
+import shikigamiStudioLogo from '~/assets/svg/shikigamistudio-icon.svg'
 import { useOutsideClick } from '~/hooks/use_outside_click_hook'
 import { useState } from 'react'
 

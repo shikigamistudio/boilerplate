@@ -7,7 +7,7 @@ const LoginController = () => import('#controllers/auth/login_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
 const RegisterController = () => import('#controllers/auth/register_controller')
 const ProfileController = () => import('#controllers/auth/profile_controller')
-const SendVerifyEmailsController = () => import('#controllers/auth/send_verify_emails_controller')
+const SendVerifyEmailController = () => import('#controllers/auth/send_verify_email_controller')
 const VerifyEmailController = () => import('#controllers/auth/verify_email_controller')
 
 /** Define routes for unauthenticated users (guest routes) */
@@ -24,9 +24,12 @@ router
 router
   .group(() => {
     router.delete('logout', [LogoutController, 'execute']) // route to perform the logout action
-    router.get('profile', [ProfileController, 'handle']) // route to display the profile page
+    router.get('profile', [ProfileController, 'handle']).as('profile') // route to display the profile page
     router.post('profile', [ProfileController, 'execute']) // route to process the profile update action
-    router.post('send-verify-email', [SendVerifyEmailsController, 'execute']) // route to send a verification email
+    router.post('send-verify-email', [SendVerifyEmailController, 'execute']) // route to send a verification email
     router.get('verify-email/:id', [VerifyEmailController, 'handle']).as('verify-email') // route to verify the email address with a given ID
+    router
+      .get('retry-verify-email', [SendVerifyEmailController, 'execute']) // route for retrying email verification
+      .as('retry.verify-email')
   })
   .use(middleware.auth()) // Apply authentication middleware to the group

@@ -1,8 +1,8 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
-import User from '#models/user'
 import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import User from '#models/user'
 
 /** Handle registration-related actions */
 export default class RegisterController {
@@ -51,11 +51,14 @@ export default class RegisterController {
     /** Step 4: Log the user in */
     await auth.use('web').login(user)
 
-    /** Step 5: Send the verification email to the created user */
-    const action = new SendVerifyEmailsAction(user)
+    /** Step 5: Extract the origin (protocol + host) from the complete URL of the request */
+    const hostUrl = new URL(request.completeUrl()).origin
+
+    /** Step 6: Send the verification email to the created user */
+    const action = new SendVerifyEmailsAction(user, hostUrl)
     await action.send()
 
-    /** Step 6: Redirect the user to the home page */
+    /** Step 7: Redirect the user to the home page */
     response.redirect('/')
   }
 }

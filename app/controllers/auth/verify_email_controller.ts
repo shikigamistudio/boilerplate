@@ -1,6 +1,8 @@
-import User from '#models/user'
 import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
+
+import { errors as mailErrors } from '#exceptions/mails/index'
+import User from '#models/user'
 
 /**
  * VerifyEmailController handles the verification of user email addresses
@@ -11,12 +13,15 @@ export default class VerifyEmailController {
    * Handles the email verification process.
    *
    * @param ctx - The HTTP context containing request, response, and other objects
+   * @param ctx.inertia - The Inertia.js context for rendering views
+   * @param ctx.params - The route parameters from the request
+   * @param ctx.request - The HTTP request object
    */
-  async handle({ params, request, response, inertia }: HttpContext) {
+  async handle({ inertia, params, request }: HttpContext) {
     /** Step 1: Check if the request URL has a valid signature. */
     if (!request.hasValidSignature()) {
       // Return a bad request response if the URL is invalid or expired
-      return response.badRequest('Invalid or expired URL')
+      throw new mailErrors.E_INVALID_EXPIRED_URL()
     }
 
     /** Step 2: Find the user by ID from the request parameters. */
@@ -25,7 +30,7 @@ export default class VerifyEmailController {
     /** Step 3: Check if the user's email is already verified. */
     if (user.hasEmailValidate) {
       // Return a bad request response if the email is already verified
-      return response.badRequest('The email is already verified')
+      throw new mailErrors.E_ALREADY_VERIFIED_EMAIL()
     }
 
     /** Step 4: Set the email verification timestamp to the current time. */
