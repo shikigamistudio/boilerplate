@@ -6,6 +6,8 @@ import { middleware } from '#start/kernel'
 const LoginController = () => import('#controllers/auth/login_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
 const RegisterController = () => import('#controllers/auth/register_controller')
+const ForgotPasswordController = () => import('#controllers/auth/forgot_password_controller')
+const ResetPasswordController = () => import('#controllers/auth/reset_password_controller')
 const ProfileController = () => import('#controllers/auth/profile_controller')
 const SendVerifyEmailController = () => import('#controllers/auth/send_verify_email_controller')
 const VerifyEmailController = () => import('#controllers/auth/verify_email_controller')
@@ -17,6 +19,10 @@ router
     router.post('login', [LoginController, 'execute']) // route to process the login action
     router.get('register', [RegisterController, 'handle']) // route to display the register page
     router.post('register', [RegisterController, 'execute']) // route to process the register action
+    router.get('forgot-password', [ForgotPasswordController, 'handle']) // route for displaying the forgot password page
+    router.post('forgot-password', [ForgotPasswordController, 'execute']) // route for handling the forgot password form submission
+    router.get('reset-password/:token', [ResetPasswordController, 'handle']).as('reset-password') // route for displaying the reset password page
+    router.post('reset-password/:token', [ResetPasswordController, 'execute']) // route for handling the reset password form submission
   })
   .use(middleware.guest()) // Apply guest middleware to the group
 

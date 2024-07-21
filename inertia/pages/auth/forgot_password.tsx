@@ -1,26 +1,30 @@
 import { Head, useForm } from '@inertiajs/react'
 import { Button } from '~/components/elements/button'
 import { Errors } from '~/components/elements/errors'
-import { Link } from '~/components/elements/link'
 import { Panel } from '~/components/elements/panel'
 import { InputGroup } from '~/components/forms/input_group'
 import type { FormEvent } from 'react'
 
-export default function Login() {
-  const form = useForm({ email: '', password: '' })
+export default function ForgotPassword() {
+  const form = useForm({ email: '' })
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    form.post('/login')
+    form.post('/forgot-password')
   }
 
   return (
     <>
-      <Head title="Login" />
+      <Head title="Forgot password" />
 
       <Panel className="m-2">
         <Errors />
         <form onSubmit={handleSubmit} className="space-y-2">
+          <p>Forgot your password? No problem.</p>
+          <p>
+            Just let us know your email address and we will email you a password reset link that
+            will allow you to choose a new one.
+          </p>
           <InputGroup
             name="email"
             type="email"
@@ -30,22 +34,8 @@ export default function Login() {
           >
             Email
           </InputGroup>
-          <InputGroup
-            name="password"
-            type="password"
-            placeholder="•••••••"
-            errorMessage={form.errors.password}
-            onChange={(event) => form.setData('password', event.target.value)}
-          >
-            Password
-          </InputGroup>
-          <div className="!mt-4">
-            <Link href="/forgot-password" className="text-sm">
-              Forgot your password ?
-            </Link>
-          </div>
           <Button type="submit" className="block w-full" isLoading={form.processing}>
-            Login
+            Email Password Reset Link
           </Button>
         </form>
       </Panel>

@@ -1,17 +1,17 @@
 @layout.email({title : "Verify your email address", hostUrl})
-<p style="margin-bottom: 48px">
+<p style="margin-bottom:48px">
   {{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account is nearly ready. But first,
   let&#39;s make sure it&#39;s really you. Select Verify email below to continue.
 </p>
-<p style="margin-bottom: 48px">
+<p style="margin-bottom:48px">
   <a href="{{link}}"
-    style=" color: #ffffff; text-decoration: none; display: inline-block; background-color: #204cfe; border-radius: 8px; padding: 12px 20px;">
+    style=" color:#ffffff;text-decoration:none;display:inline-block;background-color:#204cfe;border-radius:8px;padding:12px 20px;">
     Verify email
   </a>
 </p>
 <div>
   <p style=" margin-bottom:16px;color:#525252;font-size:14px;line-height:20px">
-    This link expires after 1 hours. Too late? Sign in and
+    This link expires after 1 hour. Too late? Sign in and
     <a href="{{linkRetry}}" style="color:#525252;text-decoration:underline" rel="=nofollow">try again</a>.
   </p>
   <p style="color:#525252;font-size:14px;line-height:20px">Not you? Ignore or delete this email.</p>

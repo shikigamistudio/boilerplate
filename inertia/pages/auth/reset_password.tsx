@@ -1,35 +1,29 @@
+import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, useForm } from '@inertiajs/react'
 import { Button } from '~/components/elements/button'
 import { Errors } from '~/components/elements/errors'
-import { Link } from '~/components/elements/link'
 import { Panel } from '~/components/elements/panel'
 import { InputGroup } from '~/components/forms/input_group'
 import type { FormEvent } from 'react'
 
-export default function Login() {
-  const form = useForm({ email: '', password: '' })
+import type ResetPasswordController from '#controllers/auth/reset_password_controller'
+
+export default function ResetPassword(props: InferPageProps<ResetPasswordController, 'handle'>) {
+  const form = useForm({ password: '', password_confirmation: '' })
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    form.post('/login')
+    form.post('/reset-password/' + props.token)
   }
 
   return (
     <>
-      <Head title="Login" />
+      <Head title="Reset password" />
 
       <Panel className="m-2">
         <Errors />
         <form onSubmit={handleSubmit} className="space-y-2">
-          <InputGroup
-            name="email"
-            type="email"
-            placeholder="john.doe@example.com"
-            errorMessage={form.errors.email}
-            onChange={(event) => form.setData('email', event.target.value)}
-          >
-            Email
-          </InputGroup>
+          <p>Enter your new password below to reset your account password.</p>
           <InputGroup
             name="password"
             type="password"
@@ -39,13 +33,17 @@ export default function Login() {
           >
             Password
           </InputGroup>
-          <div className="!mt-4">
-            <Link href="/forgot-password" className="text-sm">
-              Forgot your password ?
-            </Link>
-          </div>
+          <InputGroup
+            name="password_confirmation"
+            type="password"
+            placeholder="•••••••"
+            errorMessage={form.errors.password_confirmation}
+            onChange={(event) => form.setData('password_confirmation', event.target.value)}
+          >
+            Confirm Password
+          </InputGroup>
           <Button type="submit" className="block w-full" isLoading={form.processing}>
-            Login
+            Reset the password
           </Button>
         </form>
       </Panel>

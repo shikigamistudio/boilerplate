@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().defaultTo(this.db.rawQuery('gen_random_uuid()').knexQuery)
       table.string('full_name').nullable()
-      table.string('email', 254).notNullable().unique()
+      table.string('email').notNullable().unique()
       table.timestamp('email_validate_at').nullable()
       table.string('password').notNullable()
 

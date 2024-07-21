@@ -45,7 +45,7 @@ export default function Login() {
             errorMessage={form.errors.password_confirmation}
             onChange={(event) => form.setData('password_confirmation', event.target.value)}
           >
-            Password
+            Confirm Password
           </InputGroup>
           <Button type="submit" className="block w-full" isLoading={form.processing}>
             Register
