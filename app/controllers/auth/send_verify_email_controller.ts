@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
-import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
 import { errors as authErrors } from '#exceptions/auth/index'
 
 /**

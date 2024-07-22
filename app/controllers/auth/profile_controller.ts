@@ -2,7 +2,7 @@ import { errors as adonisAuthErrors } from '@adonisjs/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
-import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
 import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
 import User from '#models/user'

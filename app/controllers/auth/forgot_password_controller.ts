@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
-import SendResetPasswordsAction from '#actions/send_reset_passwords_action'
+import SendResetPasswordsAction from '#actions/mails/send_reset_passwords_action'
 import type { ViewProps } from '#config/inertia'
 import User from '#models/user'
 
