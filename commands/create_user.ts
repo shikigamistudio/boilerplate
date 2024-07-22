@@ -21,7 +21,7 @@ export default class CreateUser extends BaseCommand {
   @flags.string({ alias: 'p', default: 'secret' })
   declare password: string
 
-  @flags.string({ alias: 'v', default: false, allowEmptyValue: true })
+  @flags.boolean({ alias: 'v', default: false })
   declare verified: boolean
 
   prepare() {
@@ -30,8 +30,6 @@ export default class CreateUser extends BaseCommand {
       throw new Error('The email is not set')
     }
     this.email.trim().toLowerCase()
-
-    this.verified = /true/.test('' + this.verified)
   }
 
   async run() {
