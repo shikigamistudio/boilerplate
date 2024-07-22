@@ -2,9 +2,6 @@
  * Combines multiple class names into a single string.
  * Filters out undefined or falsy class names, splits each valid class name by space,
  * flattens the resulting array, joins them with a space, and trims the result.
- *
- * @param classes - An array of strings representing class names to combine
- * @returns A string of combined class names or undefined if no valid classes are provided
  */
 export function combine(...classes: (string | undefined)[]) {
   return (
