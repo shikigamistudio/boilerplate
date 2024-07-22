@@ -24,7 +24,7 @@ export function PageHeader() {
         {currentUser ? (
           <>
             <button className="p-2" onClick={() => setMenuOpen(!menuOpen)}>
-              {currentUser.email}
+              {currentUser.fullName || currentUser.email}
             </button>
             <ul
               className={`absolute right-0 top-full mt-1 rounded-xl border bg-white p-4 ${menuOpen ? 'block' : 'hidden'}`}

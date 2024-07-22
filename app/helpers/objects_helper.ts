@@ -31,9 +31,23 @@ export const arrayHelper = {
   },
 
   /** Remove the first occurrence of a value from an array. */
-  removeByValue<T>(arr: T[], value: T) {
+  removeFirstByValue<T>(arr: T[], value: T) {
     const index = arr.indexOf(value)
-    arr.splice(index, 1)
+    if (index !== -1) {
+      arr.splice(index, 1)
+    }
+  },
+
+  /** Remove the all occurrences of a value from an array. */
+  removeAllByValue<T>(arr: T[], value: T) {
+    /** Step 1: Filter out all elements that are equal to the specified value */
+    const filteredArray = arr.filter((item) => item !== value)
+
+    /** Step 2: Clear the original array */
+    arr.length = 0
+
+    /** Step 3: Push all the filtered elements back into the original array */
+    arr.push(...filteredArray)
   },
 }
 
@@ -44,6 +58,11 @@ export const numberHelper = {
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min
   },
+
+  /** Generate a random float between min and max (inclusive). */
+  randFloat(min: number, max: number) {
+    return Math.random() * (max - min) + min
+  },
 }
 
 export const stringHelper = {
@@ -53,7 +72,7 @@ export const stringHelper = {
   },
 
   /** Check if a string is empty. */
-  isEmpty(str?: string) {
+  isEmpty(str?: string | null) {
     return str === undefined || str === null || str.trim().length === 0 || string.isEmpty('')
   },
 }
