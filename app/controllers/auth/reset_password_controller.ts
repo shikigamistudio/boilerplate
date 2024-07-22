@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
+import type { ViewProps } from '#config/inertia'
 import type { PasswordResetToken } from '#models/password_reset'
 import PasswordReset from '#models/password_reset'
 import User from '#models/user'
@@ -21,7 +22,13 @@ export default class ResetPasswordController {
     await PasswordReset.findOrFail(token)
 
     /** Step 3: Render the reset password page with the token. */
-    return inertia.render('auth/reset_password', { token })
+    return inertia.render<Record<string, any>, ViewProps>(
+      'auth/reset_password',
+      { token },
+      {
+        title: 'Reset password',
+      }
+    )
   }
 
   /** Executes the password reset process. */

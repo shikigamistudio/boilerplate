@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
 import SendResetPasswordsAction from '#actions/send_reset_passwords_action'
+import type { ViewProps } from '#config/inertia'
 import User from '#models/user'
 
 /** Handle forgot password-related actions */
@@ -13,7 +14,9 @@ export default class ForgotPasswordController {
 
   /** Render the forgot password page. */
   handle({ inertia }: HttpContext) {
-    return inertia.render('auth/forgot_password')
+    return inertia.render<Record<string, any>, ViewProps>('auth/forgot_password', undefined, {
+      title: 'Forgot password',
+    })
   }
 
   /** Executes the forgot password process. */

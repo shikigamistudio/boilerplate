@@ -2,6 +2,8 @@ import { errors as adonisAuthErrors } from '@adonisjs/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
+import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
 import User from '#models/user'
 
@@ -17,7 +19,9 @@ export default class ProfileController {
 
   /** Renders the profile page */
   handle({ inertia }: HttpContext) {
-    return inertia.render('auth/profile')
+    return inertia.render<Record<string, any>, ViewProps>('auth/profile', undefined, {
+      title: 'Profile',
+    })
   }
 
   /** Executes the profile update process */
@@ -60,8 +64,16 @@ export default class ProfileController {
     // TODO send mail to old email to validate the email change if not intended
     user.fullName = validateData.fullName
     if (user.hasEmailValidate && validateData.email && user.email !== validateData.email) {
+      // Set the new mail and set back validation to null
       user.email = validateData.email
       user.emailValidateAt = null
+
+      // Extract the origin (protocol + host) from the complete URL of the request
+      const hostUrl = new URL(request.completeUrl()).origin
+
+      // Send the verification email to the created user
+      const action = new SendVerifyEmailsAction(user, hostUrl)
+      await action.send()
     }
     if (validateData.new_password && user.password !== validateData.new_password) {
       user.password = validateData.new_password

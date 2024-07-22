@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
 
+import type { ViewProps } from '#config/inertia'
 import { errors as mailErrors } from '#exceptions/mails/index'
 import User from '#models/user'
 
@@ -31,6 +32,8 @@ export default class VerifyEmailController {
     await user.save()
 
     /** Step 5: Render the email verified page using Inertia. */
-    return inertia.render('auth/verified_email')
+    return inertia.render<Record<string, any>, ViewProps>('auth/verified_email', undefined, {
+      title: 'Verified Email',
+    })
   }
 }

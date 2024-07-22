@@ -1,12 +1,15 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
+import type { ViewProps } from '#config/inertia'
 import User from '#models/user'
 
 /** Handle login-related actions */
 export default class LoginController {
   /** Renders the login page */
   handle({ inertia }: HttpContext) {
-    return inertia.render('auth/login')
+    return inertia.render<Record<string, any>, ViewProps>('auth/login', undefined, {
+      title: 'Login',
+    })
   }
 
   /** Executes the login process */

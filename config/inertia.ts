@@ -31,3 +31,15 @@ export default inertiaConfig
 declare module '@adonisjs/inertia/types' {
   export interface SharedProps extends InferSharedProps<typeof inertiaConfig> {}
 }
+
+export interface ViewProps {
+  title?: string
+  description?: string
+  image?: {
+    path: string
+    width?: number
+    height?: number
+    type?: string
+    alt?: string
+  }
+}

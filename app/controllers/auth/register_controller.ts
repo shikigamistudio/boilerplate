@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 import SendVerifyEmailsAction from '#actions/send_verify_emails_action'
+import type { ViewProps } from '#config/inertia'
 import User from '#models/user'
 
 /** Handle registration-related actions */
@@ -14,7 +15,9 @@ export default class RegisterController {
 
   /** Renders the registration page */
   handle({ inertia }: HttpContext) {
-    return inertia.render('auth/register')
+    return inertia.render<Record<string, any>, ViewProps>('auth/register', undefined, {
+      title: 'Register',
+    })
   }
 
   /** Executes the registration process */
