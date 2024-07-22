@@ -18,6 +18,7 @@ Todo Checklist
 - [ ] Change the icon in the header `inertia/components/layouts/page_header.tsx`
 - [ ] Customize the footer `inertia/components/layouts/page_footer.tsx`
 - [ ] Customize the email layout `resources/views/components/layout/email.edge`
+- [ ] Customize emails (verify email, reset password) `resources/views/emails/`
 - [ ] Activate the SMTP authentification if needed `config/mail.ts`
 
 You can then start developing your application

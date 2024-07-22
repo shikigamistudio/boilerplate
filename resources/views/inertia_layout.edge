@@ -1,25 +1,77 @@
+@let (appName = "ShikigamiStudio")
+@let (appUrl = "shikigamistudio.fr")
+@let (locale = "en")
+@assign(description = description || "Welcome to ShikigamiStudio - your go-to platform for creativity and innovation.")
+
 <!DOCTYPE html>
-<html>
+<html lang="{{locale}}">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#2196f3" />
-  <meta name="author" content="ShikigamiStudio" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ShikigamiStudio" />
-  <meta property="og:url" content="https://ayato-san.fr" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- App data -->
+  <title inertia>ShikigamiStudio</title>
+  @if(title)
+  <meta property="og:title" content="{{title}} | {{appName}}" />
+  <meta name="twitter:title" content="{{title}} | {{appName}}" />
+  @else
+  <meta property="og:title" content="{{appName}}" />
+  <meta name="twitter:title" content="{{appName}}" />
+  @end
+  <meta name="description" content="{{description}}" />
+  <meta property="og:description" content="{{description}}" />
+
+  @if(locale)
+  <!-- App language -->
+  <meta property="og:locale" content="{{locale}}" />
+  @each(other in [])
+  <meta property="og:locale:alternate" content={{other}} />
+  @end
+  @end
+
+  <!-- Twitter card -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@ayat0_san_" />
   <meta name="twitter:creator" content="@ayat0_san_" />
-  <meta name="twitter:app:url:ipad" content="ayato-san.fr" />
-  <meta name="twitter:app:url:iphone" content="ayato-san.fr" />
-  <meta property="al:ios:url" content="ayato-san.fr" />
+  <meta name="twitter:app:url:ipad" content="{{appUrl}}" />
+  <meta name="twitter:app:url:iphone" content="{{appUrl}}" />
+  <meta property="al:ios:url" content="{{appUrl}}" />
 
-  <title inertia>ShikigamiStudio</title>
+  <!-- OG base data -->
+  <meta name="author" content="ShikigamiStudio" />
+  <meta name="theme-color" content="#2196f3" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{appName}}" />
+  <meta property="og:url" content="https://{{appUrl}}" />
 
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <!-- OG image data -->
+  @if(image)
+  <meta property="og:image" content="{{image.path}}" />
+  <meta name="twitter:image" content="{{image.path}}" />
+  @if(image.width)
+  <meta property="og:image:width" content="{{image.width}}" />
+  @end
+  @if(image.height)
+  <meta property="og:image:height" content="{{image.height}}" />
+  @end
+  @if(image.type)
+  <meta property="og:image:type" content="{{image.type}}" />
+  @end
+  @if(image.alt)
+  <meta property="og:image:alt" content="{{image.alt}}" />
+  @end
+  @else
+  <meta property="og:image" content="/images/og-image.png" />
+  <meta name="twitter:image" content="/images/og-image.png" />
+  <meta property="og:image:width" content="900" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="boilerplate image" />
+  @end
+
 
   @viteReactRefresh()
   @inertiaHead()
@@ -27,6 +79,7 @@
 </head>
 
 <body>
+
   @inertia()
 </body>
 
