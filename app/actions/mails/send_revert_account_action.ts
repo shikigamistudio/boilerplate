@@ -1,10 +1,11 @@
 import router from '@adonisjs/core/services/router'
 import mail from '@adonisjs/mail/services/main'
 
-import RevertEmailChangeNotification from '#mails/revert_email_change_notification'
+import AccountChangesNotification from '#mails/account_changes_notification'
+import AccountChange from '#models/revert_email_change'
 import type User from '#models/user'
 
-export default class SendRevertEmailChangesAction {
+export default class SendRevertAccountAction {
   /**
    * Constructor to initialize the class with a user and the host URL.
    *
@@ -18,16 +19,22 @@ export default class SendRevertEmailChangesAction {
 
   /** Sends the revert email to the user. */
   async send() {
-    // Generate a signed revert email link with a 1-week expiry
+    // Create a RevertEmailChange record with the current user's ID and email
+    const revertEmailChange = await AccountChange.create({
+      userId: this.user.id,
+      email: this.user.email,
+    })
+
+    // Generate a signed revert account link with a 1-week expiry
     const link = router
       .builder()
       .prefixUrl(this.hostUrl) // Base URL for the verification link
-      .params({ id: this.user.id }) // Include user ID as a parameter in the link
-      .makeSigned('verify-email', {
+      .params({ token: revertEmailChange.token }) // Add token as a URL parameter
+      .makeSigned('revert-account', {
         expiresIn: '1 week', // Set the expiry time for the link
       })
 
-    // Send the verification email with the generated link and retry link
-    await mail.sendLater(new RevertEmailChangeNotification(this.user, link, this.hostUrl))
+    // Send the verification email with the generated link
+    await mail.sendLater(new AccountChangesNotification(this.user, link, this.hostUrl))
   }
 }

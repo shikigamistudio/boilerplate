@@ -1,15 +1,15 @@
-@layout.email({title : "Reset your password", hostUrl})
-<p>{{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account needs a password reset.</p>
-<p style="margin-bottom:48px">Select &#34;Reset the Password &#34; below to continue.</p>
+@layout.email({title : "Your email has been changed", hostUrl})
+<p>{{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account email has been changed.</p>
+<p style="margin-bottom:48px">Select &#34;Revert changes&#34; below to continue.</p>
 <p style="margin-bottom:48px">
   <a href="{{link}}"
     style=" color:#ffffff;text-decoration:none;display:inline-block;background-color:#204cfe;border-radius:8px;padding:12px 20px;">
-    Reset the Password
+    Revert changes
   </a>
 </p>
 <div>
   <p style=" margin-bottom:16px;color:#525252;font-size:14px;line-height:20px">
-    This link expires after 1 day. Too late? Request a new password reset.
+    This link expires after 1 week. Too late?
   </p>
   <p style="color:#525252;font-size:14px;line-height:20px">Not you? Ignore or delete this email.</p>
 </div>

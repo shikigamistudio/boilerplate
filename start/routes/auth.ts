@@ -11,6 +11,7 @@ const ResetPasswordController = () => import('#controllers/auth/reset_password_c
 const ProfileController = () => import('#controllers/auth/profile_controller')
 const SendVerifyEmailController = () => import('#controllers/auth/send_verify_email_controller')
 const VerifyEmailController = () => import('#controllers/auth/verify_email_controller')
+const RevertAccountController = () => import('#controllers/auth/revert_account_controller')
 
 /** Define routes for unauthenticated users (guest routes) */
 router
@@ -39,3 +40,6 @@ router
       .as('retry.verify-email')
   })
   .use(middleware.auth()) // Apply authentication middleware to the group
+
+/** Define routes for all users */
+router.get('revert-account/:token', [RevertAccountController, 'handle']).as('revert-account') // route to revert the account with a given Token
