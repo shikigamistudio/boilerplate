@@ -1,0 +1,20 @@
+{{#var pageName = generators.modelName(entity.name)}}
+{{#var pageFileName = generators.modelFileName(entity.name)}}
+{{#var controllerName = generators.controllerName(entity.name, true)}}
+{{#var controllerFileName = generators.controllerFileName(entity.name, true)}}
+{{{
+  exports({
+    to: app.makePath("./inertia/pages", pageFileName+"x")
+  })
+}}}
+// import type { SharedProps, InferPageProps } from '@adonisjs/inertia/types'
+// import { usePage } from '@inertiajs/react'
+
+// import type {{ controllerName }} from '#controllers/{{ controllerFileName }}'
+
+// export default function {{ pageName }}(props: InferPageProps<{{ controllerName }}, 'handle'>) {
+export default function {{ pageName }}() {
+  // const {} = usePage<SharedProps>().props
+
+  return <></>
+}
