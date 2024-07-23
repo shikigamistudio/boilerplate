@@ -20,9 +20,9 @@ export default class SafetyAlert extends BaseModel {
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
-  /** Email address of the user */
+  /** Changes of the user */
   @column()
-  declare email: string
+  declare changes: Record<keyof User, string> // TODO type with created key of User
 
   /** Date/time when the user record was created */
   @column.dateTime({ autoCreate: true })

@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 
 import type { ViewProps } from '#config/inertia'
 import { errors as mailErrors } from '#exceptions/mails/index'
-import SafetyAlert, { SafetyAlertToken } from '#models/safety_alert'
+import SafetyAlert, { type SafetyAlertToken } from '#models/safety_alert'
 
 /**
  * RevertEmailController handles the revert of user email addresses
@@ -11,32 +11,36 @@ import SafetyAlert, { SafetyAlertToken } from '#models/safety_alert'
  */
 export default class RevertAccountController {
   async handle({ inertia, params, request }: HttpContext) {
-    /** Step 1: */
+    /** Step 1: Retrieve the token from the URL parameters */
     const token: SafetyAlertToken = params.token
 
-    /** Step 2: Check if the token exists, throw error if not found. */
-    const t = await SafetyAlert.find(token)
-    if (t === null) {
+    /** Step 2: Check if the token exists, throw an error if not found */
+    const alert = await SafetyAlert.find(token)
+    if (alert === null) {
       // Return a bad request response if the URL is invalid or expired
       throw new mailErrors.E_INVALID_EXPIRED_URL()
     }
-    await t.load('user')
-    await t.delete()
+    await alert.load('user')
+    await alert.delete()
 
-    /** Step 3: Check if the request URL has a valid signature. */
+    /** Step 3: Check if the request URL has a valid signature */
     if (!request.hasValidSignature()) {
       // Return a bad request response if the URL is invalid or expired
       throw new mailErrors.E_INVALID_EXPIRED_URL()
     }
 
-    /** Step 3: */
-    t.user.email = t.email
-    t.user.emailValidateAt = DateTime.now()
+    /** Step 4: Apply the changes from the alert to the user */
+    for (const change in alert.changes) {
+      alert.user[change] = alert.changes[change]
+      if (change === 'email') {
+        alert.user.emailValidateAt = DateTime.now()
+      }
+    }
 
-    /** Step 4: */
-    await t.user.save()
+    /** Step 5: Save the updated user information */
+    await alert.user.save()
 
-    /** Step 5:  */
+    /** Step 6: Render the safety alert page */
     return inertia.render<Record<string, any>, ViewProps>('auth/safety_alert', undefined, {
       title: 'Safety Alert',
     })

@@ -2,8 +2,8 @@ import router from '@adonisjs/core/services/router'
 import mail from '@adonisjs/mail/services/main'
 
 import SafetyAlertNotification from '#mails/safety_alert_notification'
-import type User from '#models/user'
 import SafetyAlert from '#models/safety_alert'
+import type User from '#models/user'
 
 export default class SendSafetyAlertAction {
   /**
@@ -22,7 +22,7 @@ export default class SendSafetyAlertAction {
     // Create a RevertEmailChange record with the current user's ID and email
     const revertEmailChange = await SafetyAlert.create({
       userId: this.user.id,
-      email: this.user.email,
+      changes: { email: this.user.email },
     })
 
     // Generate a signed revert account link with a 1-week expiry
