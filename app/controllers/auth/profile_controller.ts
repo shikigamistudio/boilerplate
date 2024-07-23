@@ -2,8 +2,8 @@ import { errors as adonisAuthErrors } from '@adonisjs/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
-import SendRevertAccountAction from '#actions/mails/send_revert_account_action'
-import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
+import SendSafetyAlertAction from '#actions/mails/send_safety_alert_action'
+import SendVerifyEmailsAction from '#actions/mails/send_verify_action'
 import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
 import User from '#models/user'
@@ -69,8 +69,8 @@ export default class ProfileController {
       const hostUrl = new URL(request.completeUrl()).origin
 
       // Create an instance of SendRevertEmailChangesAction with the user and host URL
-      const revertAction = new SendRevertAccountAction(user, hostUrl)
-      await revertAction.send()
+      const safetyAction = new SendSafetyAlertAction(user, hostUrl)
+      await safetyAction.send()
 
       // Set the new mail and set back validation to null
       user.email = validateData.email

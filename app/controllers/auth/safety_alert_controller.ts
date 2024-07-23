@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 
 import type { ViewProps } from '#config/inertia'
 import { errors as mailErrors } from '#exceptions/mails/index'
-import AccountChange from '#models/revert_email_change'
+import SafetyAlert, { SafetyAlertToken } from '#models/safety_alert'
 
 /**
  * RevertEmailController handles the revert of user email addresses
@@ -12,10 +12,10 @@ import AccountChange from '#models/revert_email_change'
 export default class RevertAccountController {
   async handle({ inertia, params, request }: HttpContext) {
     /** Step 1: */
-    const token: AccountChange = params.token
+    const token: SafetyAlertToken = params.token
 
     /** Step 2: Check if the token exists, throw error if not found. */
-    const t = await AccountChange.find(token)
+    const t = await SafetyAlert.find(token)
     if (t === null) {
       // Return a bad request response if the URL is invalid or expired
       throw new mailErrors.E_INVALID_EXPIRED_URL()
@@ -37,12 +37,8 @@ export default class RevertAccountController {
     await t.user.save()
 
     /** Step 5:  */
-    return inertia.render<Record<string, any>, ViewProps>(
-      'auth/revert_account_changes',
-      undefined,
-      {
-        title: 'Revert Account',
-      }
-    )
+    return inertia.render<Record<string, any>, ViewProps>('auth/safety_alert', undefined, {
+      title: 'Safety Alert',
+    })
   }
 }

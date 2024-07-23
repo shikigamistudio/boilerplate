@@ -2,46 +2,46 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="x-apple-disable-message-reformatting">
-  <style>
-    @media screen and (max-width: 530px) {
-      h1 {
-        font-size: 24px !important;
-        line-height: 32px !important;
-      }
-    }
-  </style>
+  <meta name="format-detection" content="email=no" />
+  <meta name="format-detection" content="date=no" />
 </head>
 
-<body
-  style="padding:0;word-spacing:normal;background-color:#ffffff;font-family: Arial, sans-serif;margin:0;text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
-
-  @if (title)
-  <h1 style="color:#151515;margin-bottom:16px;font-size:36px;line-height:42px;font-weight:bold">
-    {{title.toUpperCase()}}
-  </h1>
-  @endif
-
-  <div>
-    {{{ await $slots.main() }}}
-  </div>
-
-  <div style="margin-top:48px;margin-bottom:16px">
-    <img src="{{hostUrl}}{{asset('inertia/assets/png/shikigamistudio-128x64.png') }}" alt="Logo" width="128"
-      style="margin-bottom:24px;" />
-    <div>
-      @!icon.email({href:"https://x.com",assetUrl:"inertia/assets/png/twitter-24x24.png",alt:"twitter",hostUrl})
-      @!icon.email({href:"https://instagram.com",assetUrl:"inertia/assets/png/instagram-24x24.png",alt:"instagram",hostUrl})
-      @!icon.email({href:"https://facebook.com",assetUrl:"inertia/assets/png/facebook-24x24.png",alt:"facebook",hostUrl})
-      @!icon.email({href:"https://tiktok.com",assetUrl:"inertia/assets/png/tiktok-24x24.png",alt:"tiktok",hostUrl})
-      @!icon.email({href:"https://youtube.com",assetUrl:"inertia/assets/png/youtube-24x24.png",alt:"youtube",hostUrl})
-      @!icon.email({href:"https://discord.com",assetUrl:"inertia/assets/png/discord-24x24.png",alt:"discord",hostUrl})
-      @!icon.email({href:"https://twitch.tv",assetUrl:"inertia/assets/png/twitch-24x24.png",alt:"twitch",hostUrl})
-      @!icon.email({href:"https://reddit.com",assetUrl:"inertia/assets/png/reddit-24x24.png",alt:"reddit",hostUrl})
-      @!icon.email({href:"https://linkedin.com",assetUrl:"inertia/assets/png/linkedin-24x24.png",alt:"linkedin",hostUrl})
-    </div>
-    <p style="margin-bottom:24px;font-size:14px;line-height:20px;color:#525252">© 2024 ShikigamiStudio</p>
-  </div>
+<body style="margin:0;padding:0;font-family:sans-serif" bgcolor="#FFFFFF">
+  <table width="100%" height="100%" style="min-width:348px;" border="0" cellspacing="0" cellpadding="0" lang="en">
+    <tr height="32" style="height:32px;"></tr>
+    <tr align="center">
+      <td>
+        <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:20px;max-width:516px;">
+          <tr>
+            <td width="8" style="width:8px;"></td>
+            <td>
+              <div
+                style="border-style:solid;border-width:thin;border-color:#dadce0;border-radius:8px;padding:40px 20px;"
+                align="center">
+                <img src="{{hostUrl}}{{asset('inertia/assets/png/shikigamistudio-128x64.png')}}" width="128" height="64"
+                  aria-hidden=" true" style="margin-bottom:16px;" alt="ShikigamiStudio" />
+                <div
+                  style="border-bottom:thin solid #dadce0;color:rgba(0,0,0,0.87);line-height:32px;padding-bottom:24px;text-align:center;word-break:break-word;">
+                  <div style="font-size:24px;">{{title}}</div>
+                </div>
+                <div style="font-size:14px;color:rgba(0,0,0,0.87);line-height:20px;padding-top:20px;text-align:left;">
+                  </br>
+                  {{{ await $slots.main() }}}
+                </div>
+              </div>
+              <div style="color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;padding-top:12px;text-align:center;">
+                This email has been sent to you to notify you of important changes to your account.
+                </br>
+                &copy; 2024 ShikigamiStudio
+              </div>
+            </td>
+            <td width="8" style="width:8px;"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr height=" 32" style="height:32px;"></tr>
+  </table>
 </body>
+
+</html>

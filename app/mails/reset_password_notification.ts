@@ -4,7 +4,7 @@ import type User from '#models/user'
 
 export default class ResetPasswordNotification extends BaseMail {
   from = 'no-reply@shikigamistudio.com'
-  subject = 'Reset Your ShikigamiStudio Account Password'
+  subject = 'Reset your account Password'
 
   /**
    * Constructor to initialize the ResetPasswordNotification class.
@@ -32,7 +32,7 @@ export default class ResetPasswordNotification extends BaseMail {
 
     /** Step 2: Set the email content. */
     this.message.htmlView('emails/reset_password_html', {
-      user: this.user, // Pass the user data to the email view
+      user: this.user.serialize(), // Pass the user data to the email view
       link: this.link, // Pass the reset password link to the email view
       hostUrl: this.hostUrl, // Pass the host URL to the email view
     })

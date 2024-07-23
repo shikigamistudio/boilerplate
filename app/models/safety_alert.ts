@@ -6,11 +6,11 @@ import { DateTime } from 'luxon'
 import User, { type UserId } from './user.js'
 
 /** A custom type for Revert Email Tokens */
-export type AccountChangeToken = Opaque<'RevertEmailChangeToken', string>
+export type SafetyAlertToken = Opaque<'SafetyAlertToken', string>
 
-export default class AccountChange extends BaseModel {
+export default class SafetyAlert extends BaseModel {
   @column({ isPrimary: true })
-  declare token: AccountChangeToken
+  declare token: SafetyAlertToken
 
   /** The related user id */
   @column()
