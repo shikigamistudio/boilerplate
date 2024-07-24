@@ -3,7 +3,7 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 
-import User, { type UserId } from './user.js'
+import User, { type UserEnumFields, type UserId } from './user.js'
 
 /** A custom type for Revert Email Tokens */
 export type SafetyAlertToken = Opaque<'SafetyAlertToken', string>
@@ -22,7 +22,7 @@ export default class SafetyAlert extends BaseModel {
 
   /** Changes of the user */
   @column()
-  declare changes: Record<keyof User, string> // TODO type with created key of User
+  declare changes: { [Property in UserEnumFields]?: User[Property] }
 
   /** Date/time when the user record was created */
   @column.dateTime({ autoCreate: true })

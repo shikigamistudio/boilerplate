@@ -13,11 +13,12 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
   <!-- App data -->
-  <title inertia>ShikigamiStudio</title>
   @if(title)
+  <title inertia>{{title}} | {{appName}}</title>
   <meta property="og:title" content="{{title}} | {{appName}}" />
   <meta name="twitter:title" content="{{title}} | {{appName}}" />
   @else
+  <title inertia>{{appName}}</title>
   <meta property="og:title" content="{{appName}}" />
   <meta name="twitter:title" content="{{appName}}" />
   @end

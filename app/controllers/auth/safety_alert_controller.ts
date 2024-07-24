@@ -31,6 +31,7 @@ export default class RevertAccountController {
 
     /** Step 4: Apply the changes from the alert to the user */
     for (const change in alert.changes) {
+      // @ts-expect-error - normal type problem between the change variable and the user due to not knowing the link on the ts side
       alert.user[change] = alert.changes[change]
       if (change === 'email') {
         alert.user.emailValidateAt = DateTime.now()

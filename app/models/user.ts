@@ -3,7 +3,10 @@ import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import { Opaque } from '@adonisjs/core/types/helpers'
 import { BaseModel, column, computed } from '@adonisjs/lucid/orm'
+import { LucidRow } from '@adonisjs/lucid/types/model'
 import { DateTime } from 'luxon'
+
+import type { ReadonlyKeys } from '#helpers/types'
 
 /** Authentication finder using 'scrypt' hashing algorithm for password */
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -13,6 +16,9 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 
 /** A custom type for User ID */
 export type UserId = Opaque<'UserId', string>
+
+/** A custom type to list all user's fields */
+export type UserEnumFields = Exclude<keyof User, keyof LucidRow | ReadonlyKeys<User>>
 
 export default class User extends compose(BaseModel, AuthFinder) {
   @column({ isPrimary: true })
