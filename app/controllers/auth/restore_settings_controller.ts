@@ -1,15 +1,16 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { DateTime } from 'luxon'
 
 import type { ViewProps } from '#config/inertia'
 import { errors as mailErrors } from '#exceptions/mails/index'
+import { objectHelper } from '#helpers/objects_helper'
 import SafetyAlert, { type SafetyAlertToken } from '#models/safety_alert'
+import User from '#models/user'
 
 /**
- * RevertEmailController handles the revert of user email addresses
+ * RestoreSettingsController handles the restoration of user settings
  * when they follow a revert link.
  */
-export default class RevertAccountController {
+export default class RestoreSettingsController {
   async handle({ inertia, params, request }: HttpContext) {
     /** Step 1: Retrieve the token from the URL parameters */
     const token: SafetyAlertToken = params.token
@@ -29,21 +30,14 @@ export default class RevertAccountController {
       throw new mailErrors.E_INVALID_EXPIRED_URL()
     }
 
-    /** Step 4: Apply the changes from the alert to the user */
-    for (const change in alert.changes) {
-      // @ts-expect-error - normal type problem between the change variable and the user due to not knowing the link on the ts side
-      alert.user[change] = alert.changes[change]
-      if (change === 'email') {
-        alert.user.emailValidateAt = DateTime.now()
-      }
+    /** Step 4: */
+    if (!objectHelper.isEmpty(alert.changes)) {
+      await User.query().where('id', alert.user.id).update(alert.changes)
     }
 
-    /** Step 5: Save the updated user information */
-    await alert.user.save()
-
-    /** Step 6: Render the safety alert page */
+    /** Step 5: Render the safety alert page */
     return inertia.render<Record<string, any>, ViewProps>('auth/safety_alert', undefined, {
-      title: 'Safety Alert',
+      title: 'Restore Settings',
     })
   }
 }

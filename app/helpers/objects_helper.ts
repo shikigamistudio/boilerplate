@@ -22,6 +22,11 @@ export const objectHelper = {
 
     return cloneFn
   },
+
+  /** Check if an object is empty. */
+  isEmpty<T extends object>(obj: T) {
+    return Object.entries(obj).filter(([_key, value]) => value !== undefined).length === 0
+  },
 }
 
 export const arrayHelper = {

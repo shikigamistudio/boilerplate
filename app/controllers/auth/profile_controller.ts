@@ -3,9 +3,10 @@ import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 import SendSafetyAlertAction from '#actions/mails/send_safety_alert_action'
-import SendVerifyEmailsAction from '#actions/mails/send_verify_action'
+import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
 import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
+import { objectHelper } from '#helpers/objects_helper'
 import User from '#models/user'
 
 /** Handle profile-related actions */
@@ -61,16 +62,17 @@ export default class ProfileController {
       }
     }
 
-    /** Step 4: Update user information */
-    // TODO send mail to old email to validate the email change if not intended
+    /** Step 4: Create an instance of SendRevertEmailChangesAction with the user and host URL */
+    const hostUrl = new URL(request.completeUrl()).origin
+    const safetyAction = new SendSafetyAlertAction(user, hostUrl)
+    const changes: Parameters<SendSafetyAlertAction['send']>[0] = {}
+
+    /** Step 5: Update user email */
     user.fullName = validateData.fullName
     if (user.hasEmailValidate && validateData.email && user.email !== validateData.email) {
-      // Extract the origin (protocol + host) from the complete URL of the request
-      const hostUrl = new URL(request.completeUrl()).origin
-
-      // Create an instance of SendRevertEmailChangesAction with the user and host URL
-      const safetyAction = new SendSafetyAlertAction(user, hostUrl)
-      await safetyAction.send()
+      // Store old data in the modified state object
+      changes.email = user.email
+      changes.emailValidateAt = user.emailValidateAt
 
       // Set the new mail and set back validation to null
       user.email = validateData.email
@@ -81,13 +83,19 @@ export default class ProfileController {
       await action.send()
     }
     if (validateData.new_password && user.password !== validateData.new_password) {
+      changes.password = user.password
       user.password = validateData.new_password
     }
 
-    /** Step 5: Save the user */
+    /** Step 6: Send a safty alert to old email (if changed) */
+    if (!objectHelper.isEmpty(changes)) {
+      await safetyAction.send(changes)
+    }
+
+    /** Step 7: Save the user */
     await user.save()
 
-    /** Step 6: Redirect to the profile page */
+    /** Step 8: Redirect to the profile page */
     return response.redirect().toRoute('profile')
   }
 }

@@ -19,7 +19,7 @@ export default class SendVerifyEmailController {
     /** Step 2: Extract the origin (protocol + host) from the complete URL of the request */
     const hostUrl = new URL(request.completeUrl()).origin
 
-    /** Step 3: Instantiate the SendVerifyEmailsAction with the authenticated user. */
+    /** Step 3: Instantiate the SendVerifyAction with the authenticated user. */
     const action = new SendVerifyEmailsAction(auth.user, hostUrl)
 
     /** Step 4: Send the verification email. */
