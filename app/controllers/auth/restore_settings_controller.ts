@@ -36,7 +36,7 @@ export default class RestoreSettingsController {
     }
 
     /** Step 5: Render the safety alert page */
-    return inertia.render<Record<string, any>, ViewProps>('auth/safety_alert', undefined, {
+    return inertia.render<Record<string, any>, ViewProps>('auth/restore_settings', undefined, {
       title: 'Restore Settings',
     })
   }

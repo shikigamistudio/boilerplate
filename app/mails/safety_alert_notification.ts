@@ -1,6 +1,8 @@
 import type { ModelObject } from '@adonisjs/lucid/types/model'
 import { BaseMail } from '@adonisjs/mail'
 
+import type SendSafetyAlertAction from '#actions/mails/send_safety_alert_action'
+
 export default class SafetyAlertNotification extends BaseMail {
   from = 'no-reply@shikigamistudio.com'
   subject = 'Safety alert'
@@ -15,7 +17,8 @@ export default class SafetyAlertNotification extends BaseMail {
   constructor(
     private user: ModelObject,
     private link: string,
-    private hostUrl: string
+    private hostUrl: string,
+    private changes: Parameters<SendSafetyAlertAction['send']>[0]
   ) {
     super()
   }
@@ -34,6 +37,7 @@ export default class SafetyAlertNotification extends BaseMail {
       user: this.user, // Pass the user data to the email view
       link: this.link, // Pass the revert email link to the email view
       hostUrl: this.hostUrl, // Pass the host URL to the email view
+      changes: Object.keys(this.changes), // Pass the list of changed fields to the email view
     })
   }
 }

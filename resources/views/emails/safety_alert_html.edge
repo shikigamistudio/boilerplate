@@ -1,6 +1,16 @@
-@layout.email({title : "Your email has been changed", hostUrl})
+@assign(changes = changes.filter(f=>f!=="emailValidateAt") || [])
+@layout.email({title : "Your account has been changed", hostUrl})
 <div style="margin-bottom:32px">
-  {{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account email has been changed.
+  {{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account settings has been changed.
+  @if(changes.length !== 0)
+  You can see the list of modified parameters below :
+  </br>
+  <ul>
+    @each(change in changes)
+    <li> {{ change }} </li>
+    @end
+  </ul>
+  @end
   </br>
   If you are not the origin of this modification, click on "Revert changes" to correct it.
 </div>

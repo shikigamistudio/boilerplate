@@ -40,6 +40,6 @@ export default class SendSafetyAlertAction {
       })
 
     // Send the verification email with the generated link
-    await mail.sendLater(new SafetyAlertNotification(this.user, link, this.hostUrl))
+    await mail.sendLater(new SafetyAlertNotification(this.user, link, this.hostUrl, changes))
   }
 }
