@@ -3,7 +3,7 @@
 import { defineConfig } from '@adonisjs/inertia'
 import type { InferSharedProps } from '@adonisjs/inertia/types'
 
-import type { SessionType } from '#helpers/send_toast'
+import type { Toast } from '#helpers/send_toast'
 
 const inertiaConfig = defineConfig({
   /**
@@ -17,8 +17,7 @@ const inertiaConfig = defineConfig({
   sharedData: {
     currentUser: (ctx) => ctx.auth?.user,
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
-    toasts: (ctx): Partial<Record<keyof typeof SessionType, string[]>> | undefined =>
-      ctx.session?.flashMessages.get('toast'),
+    toasts: (ctx): Toast[] | undefined => ctx.session?.flashMessages.get('toast'),
   },
 
   /**

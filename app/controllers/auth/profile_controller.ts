@@ -96,9 +96,8 @@ export default class ProfileController {
     /** Step 7: Save the user */
     await user.save()
 
-    sendToast(session, 'success', 'the profile is updated')
-
     /** Step 8: Redirect to the profile page */
+    sendToast(session, 'success', 'Your profile has been successfully updated.', 'Profile Updated')
     return response.redirect().toRoute('profile')
   }
 }

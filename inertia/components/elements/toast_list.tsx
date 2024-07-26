@@ -6,12 +6,17 @@ import { Toast } from './toast'
 export function ToastList() {
   const { toasts } = usePage<SharedProps>().props
 
-  return (
-    <div>
-      {toasts &&
-        Object.entries(toasts).map(([type, messages]) =>
-          messages.map((message) => <Toast type={type}>{message}</Toast>)
-        )}
-    </div>
-  )
+  if (toasts) {
+    return (
+      <div className="fixed bottom-2 right-2 z-10 flex max-w-xs flex-col-reverse">
+        {toasts.map((m, index) => (
+          <Toast type={m.type} title={m.title} key={index}>
+            {m.message}
+          </Toast>
+        ))}
+      </div>
+    )
+  }
+
+  return <></>
 }
