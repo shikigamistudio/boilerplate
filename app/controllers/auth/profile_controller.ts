@@ -7,6 +7,7 @@ import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
 import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
 import { objectHelper } from '#helpers/objects_helper'
+import { sendToast } from '#helpers/send_toast'
 import User from '#models/user'
 
 /** Handle profile-related actions */
@@ -94,6 +95,8 @@ export default class ProfileController {
 
     /** Step 7: Save the user */
     await user.save()
+
+    sendToast(session, 'success', 'the profile is updated')
 
     /** Step 8: Redirect to the profile page */
     return response.redirect().toRoute('profile')
