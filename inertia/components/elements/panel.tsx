@@ -32,7 +32,7 @@ function Panel(props: PanelProperties) {
   })
 
   return (
-    <div className={combine(className, 'border p-2 rounded-lg bg-white')} {...panelProps}>
+    <div className={combine(className, 'border p-4 rounded-lg bg-white')} {...panelProps}>
       {content}
       {footer}
     </div>

@@ -2,6 +2,7 @@ import type { SharedProps } from '@adonisjs/inertia/types'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { Button } from '~/components/elements/button'
 import { Errors } from '~/components/elements/errors'
+import { Link } from '~/components/elements/link'
 import { Panel } from '~/components/elements/panel'
 import { Text } from '~/components/elements/text'
 import { InputGroup } from '~/components/forms/input_group'
@@ -121,6 +122,24 @@ export default function Profile() {
             Save
           </Button>
         </form>
+      </Panel>
+      <Panel className="space-y-2 border-red-200">
+        <Text type="h2" className="text-red-500">
+          Danger zone
+        </Text>
+        <div className="gap-4 space-y-2 md:flex md:space-y-0">
+          <div className="grow">
+            <Text className="text-sm font-semibold">Delete this account</Text>
+            <Text className="text-sm">
+              Once you delete an account, there is no going back. Please be certain.
+            </Text>
+          </div>
+          <Button aspect="border" className="border-red-200 bg-red-50">
+            <Link href="/delete-user" method="delete" className="text-red-900">
+              Delete your account
+            </Link>
+          </Button>
+        </div>
       </Panel>
     </>
   )

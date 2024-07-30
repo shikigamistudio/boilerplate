@@ -12,6 +12,7 @@ const ProfileController = () => import('#controllers/auth/profile_controller')
 const SendVerifyEmailController = () => import('#controllers/auth/send_verify_email_controller')
 const VerifyEmailController = () => import('#controllers/auth/verify_email_controller')
 const RestoreSettingsController = () => import('#controllers/auth/restore_settings_controller')
+const DeleteUsersController = () => import('#controllers/auth/delete_users_controller')
 
 /** Define routes for unauthenticated users (guest routes) */
 router
@@ -38,6 +39,7 @@ router
     router
       .get('retry-verify-email', [SendVerifyEmailController, 'execute']) // route for retrying email verification
       .as('retry.verify-email')
+    router.delete('delete-user', [DeleteUsersController, 'execute']) // route to perform the delete user action
   })
   .use(middleware.auth()) // Apply authentication middleware to the group
 
