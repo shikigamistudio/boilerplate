@@ -11,6 +11,7 @@ import User from '#models/user'
  * when they follow a revert link.
  */
 export default class RestoreSettingsController {
+  /** Display the restoration message */
   async handle({ inertia, params, request }: HttpContext) {
     /** Step 1: Retrieve the token from the URL parameters */
     const token: SafetyAlertToken = params.token
