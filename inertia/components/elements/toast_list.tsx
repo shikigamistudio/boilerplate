@@ -8,9 +8,15 @@ export function ToastList() {
 
   if (toasts) {
     return (
-      <div className="fixed bottom-2 right-2 z-10 flex max-w-xs flex-col-reverse">
+      <div className="fixed bottom-2 right-2 z-10 flex max-w-xs flex-col-reverse gap-y-2">
         {toasts.map((m, index) => (
-          <Toast type={m.type} title={m.title} key={index}>
+          <Toast
+            type={m.type}
+            title={m.title}
+            key={index}
+            index={index}
+            amountToasts={toasts.length}
+          >
             {m.message}
           </Toast>
         ))}

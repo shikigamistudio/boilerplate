@@ -1,16 +1,18 @@
+import type { Toast as ToastType } from '#actions/send_toasts_action'
 import { combine } from '#helpers/class_name_combine_helper'
-import type { Toast as ToastType } from '#helpers/send_toast'
 
 export interface ToastProperties {
   type: ToastType['type']
   title: ToastType['title']
   children: ToastType['message']
+  index: number
+  amountToasts: number
 }
 
 export function Toast(props: ToastProperties) {
-  const { type, title, children } = props
+  const { type, title, children, index, amountToasts } = props
 
-  const iconStyle = 'w-5'
+  const iconStyle = 'w-5 shrink-0'
   let toastColor = 'bg-white'
   let icon: JSX.Element | undefined
   switch (type) {
@@ -65,7 +67,13 @@ export function Toast(props: ToastProperties) {
   }
 
   return (
-    <div className={combine('py-2 px-3 rounded-md flex gap-3', toastColor)}>
+    <div
+      className={combine(
+        'py-2 px-3 rounded-md flex gap-3 animate-slide-up-in opacity-0',
+        toastColor
+      )}
+      style={{ animationDelay: index * 150 + 'ms', zIndex: amountToasts - index }}
+    >
       {icon}
       <div>
         <p>{title}</p>

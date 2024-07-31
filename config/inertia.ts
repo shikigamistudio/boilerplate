@@ -3,7 +3,7 @@
 import { defineConfig } from '@adonisjs/inertia'
 import type { InferSharedProps } from '@adonisjs/inertia/types'
 
-import type { Toast } from '#helpers/send_toast'
+import type { Toast } from '#actions/send_toasts_action'
 
 const inertiaConfig = defineConfig({
   /**

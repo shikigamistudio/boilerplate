@@ -1,17 +1,21 @@
 import { errors as adonisAuthErrors } from '@adonisjs/auth'
+import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 import SendSafetyAlertAction from '#actions/mails/send_safety_alert_action'
 import SendVerifyEmailsAction from '#actions/mails/send_verify_emails_action'
+import SendToastsAction from '#actions/send_toasts_action'
 import type { ViewProps } from '#config/inertia'
 import { errors as authErrors } from '#exceptions/auth/index'
 import { objectHelper } from '#helpers/objects_helper'
-import { sendToast } from '#helpers/send_toast'
 import User from '#models/user'
 
 /** Handle profile-related actions */
+@inject()
 export default class ProfileController {
+  constructor(protected sendToastAction: SendToastsAction) {}
+
   /** Define the schema for profile updates */
   static schema = vine.object({
     fullName: vine.string().trim().optional(),
@@ -82,6 +86,10 @@ export default class ProfileController {
       // Send the verification email to the created user
       const action = new SendVerifyEmailsAction(user, hostUrl)
       await action.send()
+      this.sendToastAction.send(
+        'info',
+        'A verification email has been sended to your email to verify it'
+      )
     }
     if (validateData.new_password && user.password !== validateData.new_password) {
       changes.password = user.password
@@ -97,7 +105,11 @@ export default class ProfileController {
     await user.save()
 
     /** Step 8: Redirect to the profile page */
-    sendToast(session, 'success', 'Your profile has been successfully updated.', 'Profile Updated')
+    this.sendToastAction.send(
+      'success',
+      'Your profile has been successfully updated.',
+      'Profile Updated'
+    )
     return response.redirect().toRoute('profile')
   }
 }

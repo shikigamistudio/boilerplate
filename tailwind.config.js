@@ -23,6 +23,15 @@ export default {
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        'slide-up-in': {
+          from: { transform: 'translateY(200px)', opacity: 0 },
+          to: { transform: 'translateY(0px)', opacity: 1 },
+        },
+      },
+      animation: {
+        'slide-up-in': 'slide-up-in 300ms cubic-bezier(0.87, 0, 0.13, 1) both',
+      },
     },
   },
   plugins: [
