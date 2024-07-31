@@ -31,6 +31,9 @@ export default class SendResetPasswordsAction {
         expiresIn: '1 day', // Set the expiry time for the link
       })
 
+    // force the user name
+    this.user.fullName = this.user.fullName || this.user.$original.fullName
+
     // Send the reset password email with the generated link
     await mail.sendLater(new ResetPasswordNotification(this.user, link, this.hostUrl))
   }

@@ -39,6 +39,9 @@ export default class SendSafetyAlertAction {
         expiresIn: '1 week', // Set the expiry time for the link
       })
 
+    // force the user name
+    this.user.fullName = this.user.fullName || this.user.$original.fullName
+
     // Send the verification email with the generated link
     await mail.sendLater(new SafetyAlertNotification(this.user, link, this.hostUrl, changes))
   }

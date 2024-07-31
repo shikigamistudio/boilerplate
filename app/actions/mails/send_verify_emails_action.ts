@@ -35,7 +35,9 @@ export default class SendVerifyEmailsAction {
     // Generate a retry verification link using the router builder.
     const linkRetry = router.builder().prefixUrl(this.hostUrl).make('retry.verify-email')
 
-    // FIXME user name is not available for this process
+    // force the user name
+    this.user.fullName = this.user.fullName || this.user.$original.fullName
+
     // Send the verification email with the generated link and retry link
     await mail.sendLater(new VerifyEmailNotification(this.user, link, linkRetry, this.hostUrl))
   }

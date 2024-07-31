@@ -1,7 +1,8 @@
 @assign(changes = changes.filter(f=>f!=="emailValidateAt") || [])
 @layout.email({title : "Your account has been changed", hostUrl})
 <div style="margin-bottom:32px">
-  {{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account settings has been changed.
+  {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b> account settings has been
+  changed.
   @if(changes.length !== 0)
   You can see the list of modified parameters below :
   </br>

@@ -1,7 +1,7 @@
 @layout.email({title : "Verify your email address", hostUrl})
 <div style="margin-bottom:32px">
-  {{user.fullName || user.email.split("@")[0]}}, your <b>ShikigamiStudio</b> account is nearly ready. But first,
-  let's make sure it's really you.
+  {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b> account is nearly ready.
+  But first, let's make sure it's really you.
   </br>
   Select "Verify email" below to continue.
 </div>
