@@ -5,12 +5,11 @@ export interface ToastProperties {
   type: ToastType['type']
   title: ToastType['title']
   children: ToastType['message']
-  index: number
-  amountToasts: number
+  zIndex?: number
 }
 
 export function Toast(props: ToastProperties) {
-  const { type, title, children, index, amountToasts } = props
+  const { type, title, children, zIndex } = props
 
   const iconStyle = 'w-5 shrink-0'
   let toastColor = 'bg-white'
@@ -72,7 +71,7 @@ export function Toast(props: ToastProperties) {
         'py-2 px-3 rounded-md flex gap-3 animate-slide-up-in opacity-0',
         toastColor
       )}
-      style={{ animationDelay: index * 150 + 'ms', zIndex: amountToasts - index }}
+      style={{ zIndex }}
     >
       {icon}
       <div>

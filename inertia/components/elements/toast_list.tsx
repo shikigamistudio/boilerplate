@@ -1,23 +1,25 @@
 import type { SharedProps } from '@adonisjs/inertia/types'
 import { usePage } from '@inertiajs/react'
+import { useDelayedRenderList } from '~/hooks/use_delayed_render_list_hook'
 
 import { Toast } from './toast'
 
 export function ToastList() {
   const { toasts } = usePage<SharedProps>().props
 
-  if (toasts) {
+  const delayedList = useDelayedRenderList(250, toasts, 10000)
+
+  if (delayedList.length > 0) {
     return (
       <div className="fixed bottom-2 right-2 z-10 flex max-w-xs flex-col-reverse gap-y-2">
-        {toasts.map((m, index) => (
+        {delayedList.map((toast, index) => (
           <Toast
-            type={m.type}
-            title={m.title}
+            type={toast.type}
+            title={toast.title}
             key={index}
-            index={index}
-            amountToasts={toasts.length}
+            zIndex={delayedList.length - index}
           >
-            {m.message}
+            {toast.message}
           </Toast>
         ))}
       </div>
