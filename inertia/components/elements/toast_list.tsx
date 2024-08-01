@@ -11,7 +11,7 @@ export function ToastList() {
 
   if (delayedList.length > 0) {
     return (
-      <div className="fixed bottom-2 right-2 z-10 flex max-w-xs flex-col-reverse gap-y-2">
+      <div className="fixed bottom-0 right-0 z-10 m-2 flex max-w-xs flex-col-reverse gap-y-2">
         {delayedList.map((toast, index) => (
           <Toast
             type={toast.type}

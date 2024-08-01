@@ -1,12 +1,17 @@
+import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
 import SendResetPasswordsAction from '#actions/mails/send_reset_passwords_action'
+import SendToastsAction from '#actions/send_toasts_action'
 import type { ViewProps } from '#config/inertia'
 import User from '#models/user'
 
 /** Handle forgot password-related actions */
+@inject()
 export default class ForgotPasswordController {
+  constructor(protected sendToastAction: SendToastsAction) {}
+
   /** Define the validation schema for the forgot password form */
   static schema = vine.object({
     email: vine.string().email(),
@@ -44,6 +49,12 @@ export default class ForgotPasswordController {
       // Send the reset password email
       action.send()
     }
+
+    this.sendToastAction.send(
+      'info',
+      'A password reset email has been sent to your email address. Please check your inbox and follow the instructions to reset your password.',
+      'Forgot Password'
+    )
 
     /** Step 5: Redirect to the login page after processing the forgot password request */
     return response.redirect('/login')
