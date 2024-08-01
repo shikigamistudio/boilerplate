@@ -134,11 +134,13 @@ export default function Profile() {
               Once you delete an account, there is no going back. Please be certain.
             </Text>
           </div>
-          <Button aspect="border" className="border-red-200 bg-red-50">
-            <Link href="/delete-user" method="delete" className="text-red-900">
-              Delete your account
-            </Link>
-          </Button>
+          <Link
+            href="/delete-user"
+            method="delete"
+            className="flex justify-center gap-2 rounded-md border border-red-200 bg-red-50 px-4 py-2 text-red-900"
+          >
+            Delete your account
+          </Link>
         </div>
       </Panel>
     </>

@@ -2,6 +2,11 @@ import { Link as LinkInertia, type InertiaLinkProps } from '@inertiajs/react'
 
 import { combine } from '#helpers/class_name_combine_helper'
 
+const components = {
+  inertia: LinkInertia,
+  anchor: 'a',
+}
+
 export interface LinkProperties extends Omit<InertiaLinkProps, 'as'> {
   target?: '_blank' | '_self' | '_parent' | '_top'
 }
@@ -11,14 +16,12 @@ export function Link(props: LinkProperties) {
 
   const linkClasses = 'text-blue-500 hover:underline'
 
+  let Component: (typeof components)[keyof typeof components] = components.inertia
+
   if (linkProps.href.match(/^(https?:\/\/)?(www\.)?.*\./)) {
-    linkProps.href = linkProps.href.replace(/^(https?:\/\/)?/, 'http://')
+    Component = components.anchor
+    if (!linkProps.href.startsWith('http')) linkProps.href = 'http://' + linkProps.href
     linkProps.target = linkProps.target || '_blank'
-    return (
-      <a className={combine(className, linkClasses)} {...linkProps}>
-        {children}
-      </a>
-    )
   }
 
   let asElement: string | undefined
@@ -27,13 +30,13 @@ export function Link(props: LinkProperties) {
   }
 
   return (
-    <LinkInertia
+    <Component
       className={combine(className, linkClasses)}
       as={asElement}
       onProgress={onProgress}
       {...linkProps}
     >
       {children}
-    </LinkInertia>
+    </Component>
   )
 }
