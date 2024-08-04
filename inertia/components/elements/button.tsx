@@ -60,7 +60,7 @@ function Button(props: ButtonProperties) {
         <img
           src={loader}
           alt="loader"
-          className="w-5 animate-spin animation-duration-[1.5s]"
+          className="mr-2 inline w-5 animate-spin animation-duration-[1.5s]"
           width="20"
         />
       )}
