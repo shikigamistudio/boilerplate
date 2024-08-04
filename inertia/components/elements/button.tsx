@@ -1,11 +1,24 @@
 import loader from '~/assets/svg/loader.svg'
+import { cva, type VariantProps } from 'class-variance-authority'
 import { Children, isValidElement } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-import { combine } from '#helpers/class_name_combine_helper'
+const buttonVariants = cva('', {
+  variants: {
+    aspect: {
+      accent: ['bg-blue-200'],
+      border: ['bg-blue-50', 'border', 'border-blue-200'],
+    },
+  },
+  defaultVariants: {
+    aspect: 'accent',
+  },
+})
 
-export interface ButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
-  aspect?: 'accent' | 'border'
+export interface ButtonProperties
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   isLoading?: boolean
 }
 
@@ -28,20 +41,18 @@ function Button(props: ButtonProperties) {
     }
   })
 
-  let aspectStyle = ''
-  switch (aspect) {
-    case 'border':
-      aspectStyle = 'bg-blue-50 border border-blue-200'
-      break
-    case 'accent':
-    default:
-      aspectStyle = 'bg-blue-200'
-      break
-  }
-
   return (
     <button
-      className={combine(className, aspectStyle, 'rounded-md px-4 py-2 flex justify-center gap-2')}
+      className={twMerge(
+        'rounded-md',
+        'px-4',
+        'py-2',
+        'flex',
+        'justify-center',
+        'gap-2',
+        buttonVariants({ aspect }),
+        className
+      )}
       {...buttonProps}
     >
       {!isLoading && icon}

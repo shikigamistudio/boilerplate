@@ -1,6 +1,5 @@
 import { Children, isValidElement, type HTMLAttributes, type ReactNode } from 'react'
-
-import { combine } from '#helpers/class_name_combine_helper'
+import { twMerge } from 'tailwind-merge'
 
 interface PanelFooterProperties extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
@@ -9,7 +8,7 @@ interface PanelFooterProperties extends HTMLAttributes<HTMLDivElement> {
 function PanelFooter(props: PanelFooterProperties) {
   const { children, className, ...panelFooterProps } = props
   return (
-    <div className={combine(className, 'flex mt-4')} {...panelFooterProps}>
+    <div className={twMerge('flex', 'mt-4', className)} {...panelFooterProps}>
       {children}
     </div>
   )
@@ -32,7 +31,7 @@ function Panel(props: PanelProperties) {
   })
 
   return (
-    <div className={combine(className, 'border p-4 rounded-lg bg-white')} {...panelProps}>
+    <div className={twMerge('border', 'p-4', 'rounded-lg', 'bg-white', className)} {...panelProps}>
       {content}
       {footer}
     </div>

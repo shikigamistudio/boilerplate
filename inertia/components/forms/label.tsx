@@ -1,6 +1,5 @@
 import type { HTMLAttributes, InputHTMLAttributes } from 'react'
-
-import { combine } from '#helpers/class_name_combine_helper'
+import { twMerge } from 'tailwind-merge'
 
 export interface LabelProperties
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>,
@@ -9,7 +8,7 @@ export interface LabelProperties
 export function Label(props: LabelProperties) {
   const { className, name, children, ...labelProps } = props
   return (
-    <label className={combine(className)} htmlFor={name} {...labelProps}>
+    <label className={twMerge(className)} htmlFor={name} {...labelProps}>
       {children}
     </label>
   )

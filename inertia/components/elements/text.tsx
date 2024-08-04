@@ -1,39 +1,32 @@
+import { cva, type VariantProps } from 'class-variance-authority'
 import type { HTMLAttributes } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-import { combine } from '#helpers/class_name_combine_helper'
+const textVariants = cva('', {
+  variants: {
+    type: {
+      p: [],
+      h1: ['text-2xl', 'font-bold'],
+      h2: ['text-xl', 'font-medium'],
+      h3: ['text-lg'],
+    },
+  },
+})
 
-export interface TextProperties extends HTMLAttributes<HTMLParagraphElement> {
-  type?: 'p' | 'h1' | 'h2' | 'h3'
-}
+export interface TextProperties
+  extends HTMLAttributes<HTMLParagraphElement>,
+    VariantProps<typeof textVariants> {}
 
 export function Text(props: TextProperties) {
   const { className, children, type = 'p', ...textProps } = props
 
-  switch (type) {
-    case 'h1':
-      return (
-        <h1 className={combine(className, 'text-2xl font-bold')} {...textProps}>
-          {children}
-        </h1>
-      )
-    case 'h2':
-      return (
-        <h2 className={combine(className, 'text-xl font-medium')} {...textProps}>
-          {children}
-        </h2>
-      )
-    case 'h3':
-      return (
-        <h3 className={combine(className, 'text-lg')} {...textProps}>
-          {children}
-        </h3>
-      )
-    case 'p':
-    default:
-      return (
-        <p className={combine(className)} {...textProps}>
-          {children}
-        </p>
-      )
-  }
+  if (type === null) throw new Error('type need to be set')
+
+  const Component = type
+
+  return (
+    <Component className={twMerge(textVariants({ type }), className)} {...textProps}>
+      {children}
+    </Component>
+  )
 }

@@ -1,6 +1,5 @@
 import { Link as LinkInertia, type InertiaLinkProps } from '@inertiajs/react'
-
-import { combine } from '#helpers/class_name_combine_helper'
+import { twMerge } from 'tailwind-merge'
 
 const components = {
   inertia: LinkInertia,
@@ -13,8 +12,6 @@ export interface LinkProperties extends Omit<InertiaLinkProps, 'as'> {
 
 export function Link(props: LinkProperties) {
   const { className, children, onProgress, ...linkProps } = props
-
-  const linkClasses = 'text-blue-500 hover:underline'
 
   let Component: (typeof components)[keyof typeof components] = components.inertia
 
@@ -31,7 +28,7 @@ export function Link(props: LinkProperties) {
 
   return (
     <Component
-      className={combine(className, linkClasses)}
+      className={twMerge('text-blue-500', 'hover:underline', className)}
       as={asElement}
       onProgress={onProgress}
       {...linkProps}
