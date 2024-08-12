@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.uuid('token').primary().defaultTo(this.db.rawQuery('gen_random_uuid()').knexQuery)
       table.string('email').notNullable()
 
-      table.timestamp('created_at')
+      table.timestamp('created_at').notNullable()
     })
   }
 
