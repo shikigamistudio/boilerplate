@@ -20,7 +20,9 @@ export type UserId = Opaque<'UserId', string>
 /** A custom type to list all user's fields */
 export type UserEnumFields = Exclude<keyof User, keyof LucidRow | ReadonlyKeys<User>>
 
+/** Representing users in the application */
 export default class User extends compose(BaseModel, AuthFinder) {
+  /** Primary key ID of the user */
   @column({ isPrimary: true })
   declare id: UserId
 

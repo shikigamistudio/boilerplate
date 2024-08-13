@@ -8,7 +8,9 @@ import User, { type UserEnumFields, type UserId } from './user.js'
 /** A custom type for Revert Email Tokens */
 export type SafetyAlertToken = Opaque<'SafetyAlertToken', string>
 
+/** Represents safety alert records related to user changes */
 export default class SafetyAlert extends BaseModel {
+  /** Primary key ID of the safety alert record */
   @column({ isPrimary: true })
   declare token: SafetyAlertToken
 

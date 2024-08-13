@@ -5,7 +5,9 @@ import { DateTime } from 'luxon'
 /** A custom type for Password Reset Tokens */
 export type PasswordResetToken = Opaque<'PasswordResetToken', string>
 
+/** Represents a record used for password reset requests */
 export default class PasswordReset extends BaseModel {
+  /** Primary key ID of the password reset record */
   @column({ isPrimary: true })
   declare token: PasswordResetToken
 
