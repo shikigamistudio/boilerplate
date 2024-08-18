@@ -6,7 +6,7 @@ import { BaseModel, column, computed } from '@adonisjs/lucid/orm'
 import { LucidRow } from '@adonisjs/lucid/types/model'
 import { DateTime } from 'luxon'
 
-import type { ReadonlyKeys } from '#helpers/types'
+import type { ReadonlyKeys } from '#types/utils'
 
 /** Authentication finder using 'scrypt' hashing algorithm for password */
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {

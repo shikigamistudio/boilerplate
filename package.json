@@ -35,6 +35,7 @@
     "#services/*": "./app/services/*.js",
     "#start/*": "./start/*.js",
     "#tests/*": "./tests/*.js",
+    "#types/*": "./types/*.js",
     "#validators/*": "./app/validators/*.js"
   },
   "dependencies": {
