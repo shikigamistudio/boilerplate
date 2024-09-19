@@ -38,7 +38,7 @@ export default class RegisterController {
     let user: User | undefined
     try {
       user = await User.create(validateData)
-    } catch (error) {
+    } catch (_error) {
       // If user creation fails, flash an error message and redirect back
       session.flash('errors', 'The user already exist')
       return response.redirect().back()

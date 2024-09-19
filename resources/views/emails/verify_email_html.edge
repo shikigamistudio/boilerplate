@@ -1,16 +1,15 @@
 @layout.email({title : "Verify your email address", hostUrl})
-<div style="margin-bottom:32px">
-  {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b> account is nearly ready.
-  But first, let's make sure it's really you.
-  </br>
-  Select "Verify email" below to continue.
-</div>
-<div style="margin-bottom:32px;text-align:center;">
-  @!elements.button({text:"Verify email",link})
-</div>
-<div style="color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;text-align:center;">
-  This link expires after 1 hour. Too late?
-  </br>
-  Sign in and <a href="{{linkRetry}}" style="color:#525252;text-decoration:underline" rel="=nofollow">try again</a>.
-</div>
+  <div style="margin-bottom:32px">
+    {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b>{{ " " }}account is nearly ready. But first, let's make sure it's really you.
+    <br />
+    Select "Verify email" below to continue.
+  </div>
+  <div style="margin-bottom:32px;text-align:center;">
+    @!elements.button({text:"Verify email",link})
+  </div>
+  <div style="color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;text-align:center;">
+    This link expires after 1 hour. Too late?
+    <br />
+    Sign in and <a href="{{ linkRetry }}" style="color:#525252;text-decoration:underline" rel="=nofollow">try again</a>.
+  </div>
 @end

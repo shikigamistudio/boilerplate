@@ -1,24 +1,24 @@
 @assign(changes = changes.filter(f=>f!=="emailValidateAt") || [])
 @layout.email({title : "Your account has been changed", hostUrl})
-<div style="margin-bottom:32px">
-  {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b> account settings has been
-  changed.
-  @if(changes.length !== 0)
-  You can see the list of modified parameters below :
-  </br>
-  <ul>
-    @each(change in changes)
-    <li> {{ change }} </li>
+  <div style="margin-bottom:32px">
+    {{ sentenceCase(user.fullName || user.email.split("@")[0]) }}, your <b>ShikigamiStudio</b>{{ " " }}account settings has been changed.
+    @if(changes.length !== 0)
+      You can see the list of modified parameters below :<br />
+      <ul>
+        @each(change in changes)
+          <li>
+            {{ change }}
+          </li>
+        @end
+      </ul>
     @end
-  </ul>
-  @end
-  </br>
-  If you are not the origin of this modification, click on "Revert changes" to correct it.
-</div>
-<div style="margin-bottom:32px;text-align:center;">
-  @!elements.button({text:"Revert changes",link})
-</div>
-<div style="color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;text-align:center;">
-  This link expires after 1 week. Too late?</br>Not you? Ignore or delete this email.
-</div>
+    <br />
+    If you are not the origin of this modification, click on "Revert changes" to correct it.
+  </div>
+  <div style="margin-bottom:32px;text-align:center;">
+    @!elements.button({text:"Revert changes",link})
+  </div>
+  <div style="color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;text-align:center;">
+    This link expires after 1 week. Too late?<br />Not you? Ignore or delete this email.
+  </div>
 @end

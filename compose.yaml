@@ -25,15 +25,15 @@ services:
       MP_DATABASE: /data/mailpit.db
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-  # redis:
-  #   image: redis:latest
-  #   restart: always
-  #   ports:
+  # Redis:
+  #   Image: redis:latest
+  #   Restart: always
+  #   Ports:
   #     - "6379:6379"
-  #   volumes:
+  #   Volumes:
   #     - redis-data:/root/redis
   #     - redis-conf/redis.conf:/usr/local/etc/redis/redis.conf
-  #   environment:
+  #   Environment:
   #     - REDIS_PASSWORD=root
   #     - REDIS_PORT=6379
   #     - REDIS_DATABASES=16

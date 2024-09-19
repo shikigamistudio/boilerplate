@@ -22,7 +22,7 @@ export default class LoginController {
     try {
       // Check if the user credentials are valid
       user = await User.verifyCredentials(email, password)
-    } catch (error) {
+    } catch (_error) {
       // If verification fails, flash an error message and redirect back
       session.flash('errors', 'Invalid user credentials')
       return response.redirect().back()
