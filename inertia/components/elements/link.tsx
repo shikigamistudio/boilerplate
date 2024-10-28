@@ -1,10 +1,12 @@
 import { Link as LinkInertia, type InertiaLinkProps } from '@inertiajs/react'
-import { twMerge } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
 const components = {
   inertia: LinkInertia,
   anchor: 'a',
 }
+
+const merge = tv({ base: ['text-blue-500', 'hover:underline'] })
 
 export interface LinkProperties extends Omit<InertiaLinkProps, 'as'> {
   target?: '_blank' | '_self' | '_parent' | '_top'
@@ -28,7 +30,7 @@ export function Link(props: LinkProperties) {
 
   return (
     <Component
-      className={twMerge('text-blue-500', 'hover:underline', className)}
+      className={merge({ className })}
       as={asElement}
       onProgress={onProgress}
       {...linkProps}

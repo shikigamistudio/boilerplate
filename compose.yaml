@@ -1,6 +1,5 @@
 services:
   database:
-    container_name: database
     restart: always
     image: postgres:16-alpine3.19
     ports:
@@ -12,7 +11,6 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=app
   mailtrap:
-    container_name: mailtrap
     restart: always
     image: axllent/mailpit:v1.16
     ports:

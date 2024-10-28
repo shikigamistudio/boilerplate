@@ -1,19 +1,17 @@
 import loader from '~/assets/svg/loader.svg'
-import { cva, type VariantProps } from 'class-variance-authority'
 import { Children, isValidElement } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-const buttonVariants = cva('', {
+const buttonVariants = tv({
+  base: ['rounded-md', 'px-4', 'py-2', 'flex', 'justify-center', 'gap-2'],
   variants: {
     aspect: {
       accent: ['bg-blue-200'],
       border: ['bg-blue-50', 'border', 'border-blue-200'],
     },
   },
-  defaultVariants: {
-    aspect: 'accent',
-  },
+  defaultVariants: { aspect: 'accent' },
 })
 
 export interface ButtonProperties
@@ -43,16 +41,10 @@ function Button(props: ButtonProperties) {
 
   return (
     <button
-      className={twMerge(
-        'rounded-md',
-        'px-4',
-        'py-2',
-        'flex',
-        'justify-center',
-        'gap-2',
-        buttonVariants({ aspect }),
-        className
-      )}
+      className={buttonVariants({
+        aspect,
+        className,
+      })}
       {...buttonProps}
     >
       {!isLoading && icon}

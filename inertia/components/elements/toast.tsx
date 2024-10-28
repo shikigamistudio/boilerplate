@@ -1,22 +1,31 @@
-import { cva } from 'class-variance-authority'
 import type { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
 import type { Toast as ToastType } from '#actions/send_toasts_action'
 
-const toastVariants = cva('', {
+const toastVariants = tv({
+  slots: {
+    iconColor: ['w-5', 'shrink-0'],
+    toastColor: ['py-2', 'px-3', 'rounded-md', 'flex', 'gap-3', 'animate-slide-up-in', 'opacity-0'],
+  },
   variants: {
-    iconColor: {
-      success: 'fill-green-800',
-      error: 'fill-red-800',
-      info: 'fill-blue-800',
-      warn: 'fill-orange-800',
-    },
-    toastColor: {
-      success: ['bg-green-100', 'text-green-800'],
-      error: ['bg-red-100', 'text-red-800'],
-      info: ['bg-blue-100', 'text-blue-800'],
-      warn: ['bg-orange-100', 'text-orange-800'],
+    type: {
+      success: {
+        iconColor: 'fill-green-800',
+        toastColor: ['bg-green-100', 'text-green-800'],
+      },
+      error: {
+        iconColor: 'fill-red-800',
+        toastColor: ['bg-red-100', 'text-red-800'],
+      },
+      info: {
+        iconColor: 'fill-blue-800',
+        toastColor: ['bg-blue-100', 'text-blue-800'],
+      },
+      warn: {
+        iconColor: 'fill-orange-800',
+        toastColor: ['bg-orange-100', 'text-orange-800'],
+      },
     },
   },
 })
@@ -30,6 +39,8 @@ export interface ToastProperties {
 
 export function Toast(props: ToastProperties) {
   const { type, title, children, zIndex } = props
+
+  const { iconColor, toastColor } = toastVariants({ type })
 
   let path: ReactNode | undefined
   switch (type) {
@@ -56,24 +67,8 @@ export function Toast(props: ToastProperties) {
   }
 
   return (
-    <div
-      className={twMerge(
-        'py-2',
-        'px-3',
-        'rounded-md',
-        'flex',
-        'gap-3',
-        'animate-slide-up-in',
-        'opacity-0',
-        toastVariants({ toastColor: type })
-      )}
-      style={{ zIndex }}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        className={twMerge('w-5', 'shrink-0', toastVariants({ iconColor: type }))}
-      >
+    <div className={toastColor()} style={{ zIndex }}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={iconColor()}>
         {path}
       </svg>
       <div>

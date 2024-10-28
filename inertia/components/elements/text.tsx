@@ -1,8 +1,8 @@
-import { cva, type VariantProps } from 'class-variance-authority'
 import type { HTMLAttributes } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-const textVariants = cva('', {
+const textVariants = tv({
+  base: [],
   variants: {
     type: {
       p: [],
@@ -25,7 +25,7 @@ export function Text(props: TextProperties) {
   const Component = type
 
   return (
-    <Component className={twMerge(textVariants({ type }), className)} {...textProps}>
+    <Component className={textVariants({ type, className })} {...textProps}>
       {children}
     </Component>
   )

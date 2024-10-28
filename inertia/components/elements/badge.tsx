@@ -1,5 +1,7 @@
 import type { HTMLAttributes } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
+
+const merge = tv({ base: ['bg-blue-100', 'px-1', 'rounded-md', 'text-sm'] })
 
 export interface BadgeProperties extends HTMLAttributes<HTMLSpanElement> {}
 
@@ -7,10 +9,7 @@ export function Badge(props: BadgeProperties) {
   const { className, children, ...spanProps } = props
 
   return (
-    <span
-      className={twMerge('bg-blue-100', 'px-1', 'rounded-md', 'text-sm', className)}
-      {...spanProps}
-    >
+    <span className={merge({ className })} {...spanProps}>
       {children}
     </span>
   )
