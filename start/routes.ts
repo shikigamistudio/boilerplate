@@ -9,6 +9,7 @@
 
 /** Import the authentication routes defined in a separate file */
 import './routes/auth.js'
+import './routes/fragments.js'
 
 import router from '@adonisjs/core/services/router'
 

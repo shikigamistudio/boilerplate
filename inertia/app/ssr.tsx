@@ -1,5 +1,7 @@
+import type { Page } from '@inertiajs/core'
 import { createInertiaApp } from '@inertiajs/react'
 import { AppShell } from '~/components/layouts/app_shell'
+import type { DefineComponent } from '~/types/react'
 import ReactDOMServer from 'react-dom/server'
 
 /**
@@ -8,7 +10,7 @@ import ReactDOMServer from 'react-dom/server'
  * @param page - The initial page component to render
  * @returns The created Inertia.js app instance
  */
-export default function render(page: any) {
+export default function render(page: Page | string) {
   return createInertiaApp({
     /** Initial page component to render */
     page,
@@ -19,8 +21,8 @@ export default function render(page: any) {
     /** Resolve function to dynamically load page components */
     resolve: (name) => {
       /** Step 1: Eagerly load all page components matching the glob pattern */
-      const pages = import.meta.glob('../pages/**/*.tsx', { eager: true })
-      const currentPage: any = pages[`../pages/${name}.tsx`]
+      const pages = import.meta.glob<DefineComponent>('../pages/**/*.tsx', { eager: true })
+      const currentPage = pages[`../pages/${name}.tsx`]
 
       /** Step 2: Set default layout if not specified in the page component */
       currentPage.default.layout =

@@ -7,6 +7,7 @@ import '../css/app.css'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { createInertiaApp } from '@inertiajs/react'
 import { AppShell } from '~/components/layouts/app_shell'
+import type { DefineComponent } from '~/types/react'
 import { hydrateRoot } from 'react-dom/client'
 
 /** The application name */
@@ -23,9 +24,9 @@ createInertiaApp({
   /** Resolve page components dynamically */
   resolve: async (name) => {
     /** Step 1: Load the page component dynamically */
-    const page: any = await resolvePageComponent(
+    const page = await resolvePageComponent(
       `../pages/${name}.tsx`, // Path to the page component
-      import.meta.glob('../pages/**/*.tsx') // Glob pattern to match page components
+      import.meta.glob<DefineComponent>('../pages/**/*.tsx') // Glob pattern to match page components
     )
 
     /** Step 2: Set default layout if not specified in the page component */
