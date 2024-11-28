@@ -22,13 +22,10 @@ export default class ResetPasswordController {
     await PasswordReset.findOrFail(token)
 
     /** Step 3: Render the reset password page with the token. */
-    return inertia.render<Record<string, any>, ViewProps>(
-      'auth/reset_password',
-      { token },
-      {
-        title: 'Reset password',
-      }
-    )
+    const pageProps = { token }
+    return inertia.render<typeof pageProps, ViewProps>('auth/reset_password', pageProps, {
+      title: 'Reset password',
+    })
   }
 
   /** Executes the password reset process. */

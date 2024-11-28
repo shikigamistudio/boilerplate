@@ -1,19 +1,22 @@
-import type { InferPageProps } from '@adonisjs/inertia/types'
 import { Head, useForm } from '@inertiajs/react'
 import { Button } from '~/components/elements/button'
 import { Errors } from '~/components/elements/errors'
 import { Panel } from '~/components/elements/panel'
 import { InputGroup } from '~/components/forms/input_group'
+import type { Props } from '~/types/controller'
 import type { FormEvent } from 'react'
 
 import type ResetPasswordController from '#controllers/auth/reset_password_controller'
 
-export default function ResetPassword(props: InferPageProps<ResetPasswordController, 'handle'>) {
+type ResetPasswordProps = Props<ResetPasswordController>
+
+export default function ResetPassword(props: ResetPasswordProps) {
   const form = useForm({ password: '', password_confirmation: '' })
+  const { token } = props
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    form.post('/reset-password/' + props.token)
+    form.post('/reset-password/' + token)
   }
 
   return (
