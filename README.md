@@ -1,13 +1,15 @@
-<p align="center">
+<div align="center">
   <img src="https://github.com/shikigamistudio/boilerplate/assets/71392060/5a5ab7a2-5c90-43a8-a09c-026236f7f292">
-</p>
-
----
-
-<div align="center"><b>Start your next AdoniJS project in seconds</b></div>
-<div align="center">A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</div>
-
----
+  <h1>Boilerplate</h1>
+  <p><b>Start your next AdoniJS project in seconds</b></p>
+  <p>A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</p>
+  <div>
+    <a href="https://github.com/shikigamistudio/boilerplate/blob/main/LICENSE.md"><img alt="GitHub License" src="https://img.shields.io/github/license/shikigamistudio/boilerplate?style=for-the-badge"></a>
+    <a href="https://github.com/shikigamistudio/boilerplate/releases/latest"><img alt="NPM Version" src="https://img.shields.io/github/package-json/version/shikigamistudio/boilerplate?style=for-the-badge"></a>
+    <a href="https://github.com/shikigamistudio/boilerplate/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/shikigamistudio/boilerplate?style=for-the-badge"></a>
+    <a href="#"><img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/shikigamistudio/boilerplate?style=for-the-badge"></a>
+  </div>
+</div>
 
 Todo Checklist
 
